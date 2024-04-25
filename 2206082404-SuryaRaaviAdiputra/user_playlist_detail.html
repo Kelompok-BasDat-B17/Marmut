@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    <title>Home</title>
+    <!-- Custom styles-path -->
+    <link rel="stylesheet" href="css/navbar.css">
+
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   
+</head>
+
+<body>
+    <div id="header-playlist">
+      <div class="container">
+        <nav>
+          <h5>Mar<span>mut</span></h5>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Chart</a></li>
+            <li><a href="#" class="nav-playlist">Kelola playlist</a></li>
+            <li><a href="#">Cari lagu</a></li>
+            <li><a href="#">Langganan paket</a></li>
+          </ul>
+          <button class="logout-btn">Logout</button>
+        </nav>
+      </div>
+    </div>
+    <div class="playlist-page two">
+      <h2>User Playlist Detail</h2>
+      <div class="list-playlist three">
+        <div class="playlist-description">
+          <h3>Judul</h3>
+          <h5>Playlist 1</h5>
+          <h3>Pembuat</h3>
+          <h5>Pembuat 1</h5>
+          <h3>Jumlah Lagu</h3>
+          <h5>12</h5>
+          <h3>Total Durasi</h3>
+          <h5>8 jam 20 menit</h5>
+          <h3>Tanggal Dibuat</h3>
+          <h5>18/03/24</h5>
+          <h3>Deskripsi</h3>
+          <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h5>
+        </div>
+        <div class="user-btn">
+          <button>Shuffle Play <i class="fa-solid fa-shuffle"></i></button>
+          <button>Kembali</button>
+        </div>
+        <div id="daftar-lagu">
+          <h2>Daftar Lagu</h2>
+        </div>
+        <section class="playlist-content two">
+          <table>
+            <thead>
+              <tr>
+                <th>Judul Lagu</th>
+                <th>Oleh</th>
+                <th>Durasi</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Song 1</th>
+                <th>Artist 1</th>
+                <th>5 menit</th>
+                <th class="btn-action">
+                  <button><i class="fa-solid fa-eye"></i></button>
+                  <button><i class="fa-solid fa-play"></i></button>
+                  <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                </th>
+              </tr>
+              <tr>
+                <th>Song 2</th>
+                <th>Artist 2</th>
+                <th>3 menit</th>
+                <th class="btn-action">
+                  <button><i class="fa-solid fa-eye"></i></button>
+                  <button><i class="fa-solid fa-play"></i></button>
+                  <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                </th>
+              </tr>
+              <tr>
+                <th>Song 3</th>
+                <th>Artist 3</th>
+                <th>7 menit</th>
+                <th>
+                  <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
+                  <button><i class="fa-solid fa-play"></i></button>
+                  <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                </th>
+              </tr>
+              <tr>
+                <th>Song 4</th>
+                <th>Artist 4</th>
+                <th>3 menit</th>
+                <th class="btn-action">
+                  <button><i class="fa-solid fa-eye"></i></button>
+                  <button><i class="fa-solid fa-play"></i></button>
+                  <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                </th>
+              </tr>
+              <tr>
+                <th>Song 5</th>
+                <th>Artist 5</th>
+                <th>4 menit</th>
+                <th class="btn-action">
+                  <button><i class="fa-solid fa-eye"></i></button>
+                  <button><i class="fa-solid fa-play"></i></button>
+                  <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                </th>
+              </tr><tr>
+                <th>Song 5</th>
+                <th>Artist 5</th>
+                <th>5 menit</th>
+                <th class="btn-action">
+                  <button><i class="fa-solid fa-eye"></i></button>
+                  <button><i class="fa-solid fa-play"></i></button>
+                  <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <div class="row-btn">
+          <button class="add-btn">
+            Tambah Playlist
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="add-song-container">
+      <form class="input-lagu">
+        <div id="row-title">
+          <h3>Add Song</h3>
+        </div>
+        <div class="input-row song">
+          <div class="add-song-content">
+            <h5>
+              Pilih Lagu
+            </h5>
+            <select id="dropdown">
+              <option value="lagu-1-artist-1">Judul Lagu 1 - Nama Artis 1</option>
+              <option value="lagu-2-artist-2">Judul Lagu 2 - Nama Artis 2</option>
+              <option value="lagu-3-artist-3">Judul Lagu 3 - Nama Artis 3</option>
+              <option value="lagu-4-artist-4">Judul Lagu 4 - Nama Artis 4</option>
+              <option value="lagu-5-artist-5">Judul Lagu 5 - Nama Artis 5</option>
+              <option value="lagu-6-artist-6">Judul Lagu 6 - Nama Artis 6</option><option value="lagu-7-artist-7">Judul Lagu 7 - Nama Artis 7</option>
+            </select>
+          </div>
+          <div class="row-btn two">
+            <button class="add-btn-two">
+              Tambahkan
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript" src="js/navbar.js"></script>
+</body>
+
+</html>
