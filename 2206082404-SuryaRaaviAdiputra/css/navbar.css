@@ -729,7 +729,7 @@ button.delete:hover{
   height: 1px;
   background-color: rgb(212, 212, 212);
   position: absolute;
-  left: 249px;
+  left: 20%;
   bottom: -30px;
 }
 
