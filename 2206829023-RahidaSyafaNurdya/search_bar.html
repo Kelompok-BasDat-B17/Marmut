@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Success - Add Song to Playlist</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, red, blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white; /* Set text color to white */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            padding: 30px;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow for depth */
+            width: 80%;
+            max-width: 500px; /* Control the maximum width */
+            text-align: center;
+        }
+
+        button {
+            width: 13%;
+            background-color: #222;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        
+        button:hover {
+            background-color: #4CAF50; /* Green when hovered */
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 70px); /* Adjust width to accommodate the button */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button.search-button {
+            width: 70px; /* Adjust the width of the button */
+            background-color: #222;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        button.search-button:hover{
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Search Bar</h2>
+        <div class="search-container">
+            <form action="/search" method="get">
+                <div class="search-bar">
+                    <input type="text" name="query" placeholder="Enter search term" required>
+                    <button type="submit" class="search-button">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

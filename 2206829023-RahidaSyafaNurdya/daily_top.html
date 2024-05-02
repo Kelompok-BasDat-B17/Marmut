@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Song Details</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .playlist-details{
+            color: white; /* Set the text color to white */
+            width: 80%;
+            margin: auto;
+        }
+
+        .playlist-details p {
+            margin-top: 20px; /* Jarak ke elemen di atasnya */
+            margin-bottom: 20px; /* Jarak ke elemen di bawahnya */
+        }
+        
+        .playlist-details p:first-child {
+            margin-top: 40px; /* Jarak lebih besar di bagian atas elemen pertama */
+        }
+
+        .playlist-details p:last-child {
+            margin-bottom: 20px; /* Jarak lebih besar di bagian bawah elemen terakhir */
+        }
+
+        .user-btn button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #000; /* Initial black color */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transition for hover effect */
+        }
+
+        .user-btn button:hover {
+            background-color: #4CAF50; /* Green when hovered */
+        }
+
+        .back-btn {
+            margin: 10px;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            float: left;
+            color: white; /* Initial white color */
+        }
+
+        .back-btn i {
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover i {
+            color: black; /* Change color on hover */
+        }
+        
+        .episode-list h2 {
+            text-align: center;
+        }
+        
+        .list-playlist .episode-list table {
+            width: 100%; /* Make table use up all the horizontal space of its parent */
+            border-collapse: collapse; /* Optional: reduces spacing between borders */
+            margin-left: 0; /* Remove any margin on the left */
+            margin-right: 0; /* Remove any margin on the right */
+        }
+
+        .list-playlist .episode-list th, .list-playlist .episode-list td {
+            padding: 8px; /* Adjust cell padding */
+            text-align: left; /* Align text to the left */
+        }
+
+        .container {
+            padding: 0; /* Ensure the container has no padding */
+            width: 100%; /* Optional: ensure container takes full width if not already set */
+        }
+
+        .action-btn button {
+            padding: 10px 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 5px;
+            background-color: #000; /* Initial black color */
+            color: white;
+            font-size: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transition for hover effect */
+        }
+
+        .action-btn button:hover {
+            background-color: #4CAF50; /* Green when hovered */
+        }
+    </style>
+</head>
+<body>
+    <div id="header-playlist">
+        <div class="container">
+            <nav>
+              <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+            </nav>
+        </div>
+    </div>
+    <div class="playlist-page two">
+        <h2>Chart Detail</h2>
+        <div class="list-playlist three">
+            <div class="playlist-details">
+                <p><strong>Tipe:</strong> Daily Top 20</p>
+            </div>
+            <div class = "user-btn">
+                <button onclick="window.history.back();">Kembali</button>
+            </div>
+            <div class="episode-list">
+                <h2>Daftar Lagu</h2>
+                <table>
+                    <tr>
+                        <th>Judul Lagu</th>
+                        <th>Oleh</th>
+                        <th>Tanggal Rilis</th>
+                        <th>Total Plays</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>Song1</td>
+                        <td>Artist1</td>
+                        <td>09/03/2024</td>
+                        <td>21000</td>
+                        <td>
+                            <div class = "action-btn">
+                                <a href="play_song.html">
+                                    <button>Lihat</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Song2</td>
+                        <td>Artist2</td>
+                        <td>02/03/2024</td>
+                        <td>19000</td>
+                        <td>
+                            <div class = "action-btn">
+                                <a href="play_song.html">
+                                    <button>Lihat</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/navbar.js"></script>
+</body>
+</html>

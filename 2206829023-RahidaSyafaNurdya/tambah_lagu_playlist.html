@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Add Song to Playlist</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, red, blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white; /* Set text color to white */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            padding: 30px;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow for depth */
+            width: 80%;
+            max-width: 500px; /* Control the maximum width */
+            text-align: center;
+        }
+
+        select, button {
+            width: 100%; /* Full width */
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222; /* Dark background for inputs and buttons */
+            color: white;
+            outline: none;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4CAF50; /* Hijau ketika di-hover */
+        }
+
+        .song-info {
+            display: flex; /* Aktifkan flexbox */
+            flex-direction: column; /* Menyusun item secara vertikal */
+            justify-content: center; /* Pusatkan item secara vertikal di container */
+            align-items: center; /* Pusatkan item secara horizontal di container */
+            width: 100%; /* Gunakan lebar penuh dari container */
+            margin: 20px 0; /* Berikan jarak atas dan bawah */
+        }
+
+        .user-btn {
+            display: flex;
+            justify-content: center; /* Centers buttons horizontally in the container */
+            gap: 10px; /* Adds space between buttons */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Song To User Playlist</h2>
+        <div class="song-info">
+            <p><strong>Judul:</strong> Song1<br>
+            <strong>Artist:</strong> Artist1</p>
+        </div>
+        <form onsubmit="handleSubmit(event)">
+            <label for="playlist">Playlist:</label>
+            <select id="playlist" required>
+                <option value="">Select a playlist</option>
+                <option value="1">My Favorites</option>
+                <option value="2">Workout Music</option>
+            </select>
+            <div class="user-btn">
+                <button type="submit">Tambah</button>
+                <button type="button" onclick="window.history.back();">Kembali</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission
+            var select = document.getElementById('playlist');
+            if (select.value !== "") {
+                window.location.href = 'success_add.html'; // Redirect to success page if validation is passed
+            } else {
+                alert('Please select a playlist first.');
+            }
+        }
+    </script>
+</body>
+</html>

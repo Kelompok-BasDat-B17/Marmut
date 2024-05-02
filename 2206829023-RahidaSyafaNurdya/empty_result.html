@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Success - Add Song to Playlist</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, red, blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white; /* Set text color to white */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+            padding: 30px;
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft shadow for depth */
+            width: 80%;
+            max-width: 500px; /* Control the maximum width */
+            text-align: center;
+        }
+
+        button {
+            width: 100%; /* Full width */
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222; /* Dark background for inputs and buttons */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4CAF50; /* Green when hovered */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Not Found</h2>
+        <p>Maaf, pencarian untuk “love” tidak ditemukan</p>
+        <div class="user-btn">
+            <button onclick="window.location.href='search_bar.html';">Kembali</button>
+        </div>
+    </div>
+</body>
+</html>
