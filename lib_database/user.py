@@ -1,4 +1,4 @@
-from query import *
+from lib_database.query import *
 from datetime import datetime as dt
 
 
