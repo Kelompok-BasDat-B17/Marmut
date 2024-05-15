@@ -1,0 +1,569 @@
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background: linear-gradient(to right, red, blue);
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0 2rem;
+  overflow-x: hidden;
+}
+
+.fa-arrow-left{
+  font-size: 20px;
+  background: none;
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  color: #f9f9f9;
+}
+
+.fa-arrow-left:hover{
+  color: rgb(35, 35, 255);
+}
+
+
+.login-container,
+.register-container{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.forgot {
+  padding-bottom: 10px;
+}
+
+form {
+  width: 400px;
+  padding: 1.2rem;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.2);
+}
+
+form h2, .base-container h2, .base-register-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.base-container h2, 
+.base-register-container h2{
+  font-weight: bold;
+  color: white;
+}
+
+.base-container h2, 
+.base-register-container a{
+  font-size: 2rem;
+}
+
+.base-container h2 span, .base-register-container h2 span{
+  color: rgb(0, 166, 0);
+}
+
+.base-container{
+  display: grid;
+  grid-auto-flow: row;
+  gap: 20px;
+}
+
+.base-register-container{
+  display: inline-block;
+  position: absolute;
+}
+
+.btn-1, .btn-2 {
+  background-color: transparent;
+  cursor: pointer;
+  border-style: none;
+}
+
+.base-register-container h3{
+  position: relative;
+  right: 0%;
+  left: 0%;
+  color: white;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+
+.login,
+.register {
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 0px 75px;
+  cursor: pointer;
+  z-index: 100;
+  position: relative;
+  left: -15px;
+}
+
+.login h5, .register h5{
+  color: white;
+}
+
+.login::before, 
+.register::before{
+  content: "";
+  position: absolute;
+  background-color: rgb(244, 1, 1);
+  height: 2rem;
+  width: 2px;
+  transform: translateX(-10px);
+  transition: 1s;
+}
+
+.login:hover::before, 
+.register:hover::before{
+  width: 130%;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+
+.input-div {
+  position: relative;
+  display: grid;
+  grid-template-columns: 10% 90%;
+  margin: 20px 0;
+  padding: 5px 0;
+  border-bottom: 2px solid #d9d9d9;
+}
+
+.input-div.three{
+  grid-template-columns: 80% 20%;
+}
+
+
+.gender-row, .date-row{
+  position: relative;
+  display: grid;
+  grid-template-columns: 90% 10%;
+  margin: 20px 0;
+  padding: 5px 0;
+}
+
+.input-tanggal{
+  margin: 7px 10px 5px 130px;
+  border-style: none;
+  font-size: 16px;
+  padding: 0px 30px 0px 20px;
+}
+
+.input-div::after,
+.input-div::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: #db4b23;
+  transition: 0.3s;
+}
+
+.input-div::after {
+  right: 50%;
+}
+
+.input-div::before {
+  left: 50%;
+}
+
+.option-btn{
+  margin: 30px 20px;
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: center;
+}
+
+.pgn-btn, .lbl-btn{
+  background-color: rgb(33, 33, 33);
+  border-style: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  width: 200px;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
+  transition: ease 1s;
+}
+
+.pgn-btn:hover, .lbl-btn:hover{
+  color: rgb(33, 33, 33);
+  background-color: white;
+}
+
+.input-div.focus .i i {
+  color: #db4b23;
+}
+
+.input-div.focus div h5 {
+  top: -5px;
+  font-size: 15px;
+}
+
+.input.tanggal{
+  margin-top: 20px;
+  background-color: transparent;
+}
+
+.register-form{
+  margin: 60px 50px 100px 50px;
+}
+
+.input-div.focus::after,
+.input-div.focus::before {
+  width: 50%;
+}
+
+.input-div .one {
+  margin-top: 0;
+}
+
+.input-div .two {
+  margin-bottom: 4px;
+}
+
+.i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.i i {
+  color: #d9d9d9;
+  transition: 0.3s;
+}
+
+.input-div > div {
+  position: relative;
+  height: 40px;
+}
+
+.gender-row > div, .date-row > div {
+  position: relative;
+  height: 40px;
+}
+
+.input-div > div h5 {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.gender-row h5, .date-row h5{
+  position: absolute;
+  left: 9px;
+  top: 20%;
+  color: #999;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.checkbox-group {
+  margin: 50px 0px 50px 0px;
+  display: flexbox;
+  flex-direction: column;
+  flex-grow: 1;
+
+}
+
+.checkbox-group h5{
+  margin-bottom: 15px;
+  color: #999;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.checkbox-group label {
+  margin: 15px 10px 0px 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"]:checked + label {
+  font-weight: bold;
+  color: blue; 
+}
+
+.input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+  color: #555;
+}
+
+a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #616161;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.login a,
+.register a{
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: none;
+  text-align: left;
+}
+
+
+a:hover {
+  color: #db4b23;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border-radius: 15px;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  background-image: linear-gradient(to right, rgb(49, 49, 255), purple);
+  color: #eaeaea;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  background-size: 200%;
+  transition: 0.5s;
+}
+
+.btn:hover {
+  background-position: right;
+}
+
+
+.account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.account p {
+  margin: 0.5rem;
+}
+
+.terms {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  margin: 0px 10px 15px 0px;
+}
+
+.terms a {
+  color: #db4b23;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.terms input {
+  margin-right: 10px;
+}
+
+.others {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.others hr {
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+}
+
+.others p {
+  padding: 0 10px;
+}
+
+.confirm-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.content {
+  width: 400px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 1.2rem;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.2);
+}
+
+.register-form div h2{
+  text-align: center;
+}
+
+.content h2 {
+  font-size: 1.8rem;
+  margin: 10px 0;
+}
+
+.fa-check-circle {
+  font-size: 50px;
+  border-radius: 100%;
+  color: #fff;
+  background-color: #addb31;
+  margin: 5px 0 25px;
+  position: relative;
+}
+
+.fa-right-to-bracket{
+  color:white;
+  background: none;
+  font-size: 20px;
+  padding-top: 3px;
+}
+
+.fa-exclamation-circle {
+  font-size: 50px;
+  color: #ff0000;
+  background-color: #fff;
+  margin: 5px 0 25px;
+  position: relative;
+}
+
+.btn-container a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.btn-container{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+#dropdown {
+  padding: 10px 100px 10px 50px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-style: none;
+}
+
+/* Styling ketika dropdown di-hover */
+#dropdown:hover {
+  background-color: #f9f9f9;
+}
+
+/* Styling untuk dropdown ketika di-klik atau aktif */
+#dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Styling untuk option dalam dropdown */
+#dropdown option {
+  padding: 15px 20px;
+}
+
+
+.btn-action {
+  width: 50%;
+  background-image: linear-gradient(to right, rgb(49, 49, 255), purple);
+  color: #eeeeee;
+  border-radius: 15px;
+  height: 40px;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 1s;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-action:hover {
+  background-image: linear-gradient(to right, rgb(40, 255, 75), rgb(49, 49, 255));
+}
+
+
+/* ================ Modal ====================== */
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding: 30px 0;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  margin: 0 auto;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
