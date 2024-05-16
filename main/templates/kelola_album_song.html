@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    <title>Home</title>
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<style>
+  *{
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+body{
+  background: linear-gradient(to right, red, blue);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+#header{
+  width: 100%;
+  height: 100vh;
+}
+
+.container{
+  padding: 10px 5%;
+}
+
+nav, .logout-btn{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logout-btn{
+  font-size: 18px;
+  border-radius: 7px;
+  font-weight: bold;
+  padding: 5px 20px 10px 20px;
+  border-style: none;
+  color: white;
+  background-color: rgba(232, 0, 0, 0.963);
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.2);
+  transition: ease 0.5s;
+}
+
+.logout-btn:hover{
+  background-color: white;
+  color: rgba(232, 0, 0, 0.963);
+}
+
+nav h5{
+  font-size: 18px;
+}
+
+nav h5 span{
+  color: rgb(0, 166, 0);
+}
+
+nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 10px 20px;
+}
+
+nav ul li a{
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;   
+  position: relative;
+}
+
+
+nav ul li a::after{
+  content: '';
+  width: 0;
+  height: 3px;
+  background: rgba(5, 5, 246, 0.855);
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  transition: 0.5s;
+}
+
+nav ul li a:hover::after{
+  width: 100%; 
+}
+nav ul li a.nav-royalty-list::after,
+nav ul li a.nav-album-song::after,
+nav ul li a.nav-dashboard::after,
+nav ul li a.nav-paket::after{
+  width: 100%
+}
+
+.dashboard-container h2{
+  margin: 55px 47%;
+}
+
+.album-page h2{
+  margin: 50px 0px 20px 0px;
+}
+
+.royalty-list-page h2{
+  margin: 50px 0px 20px 0px;
+}
+
+.chart-container h2,
+.album-container h2,
+.paket-row{
+  margin: 10px 0px 35px 67px;
+}
+
+
+
+.paket-container h2,
+.other-container h2{
+  margin: 10px 0px 10px 67px;
+}
+
+.other-container{
+  margin-bottom: 200px;
+}
+
+.chart-title{
+  display: flex;
+  justify-content: center;
+}
+
+.user-information{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-row-gap: 50%;
+  grid-column-gap: 50px;
+  padding: 0px 0px 0px 300px;
+}
+
+.row{
+  position: relative;
+  padding-left: 10px;
+}
+
+.textfield::before{
+  content:'';
+  background-color: rgba(195, 186, 186, 0.909);
+  height: 100%;
+  width: 5px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+
+
+.chart-container, 
+.album-container{
+  display: grid;
+  grid-auto-flow: row;
+  place-items: center;
+}
+
+.chart-row{
+  background: black;
+  width: 50%;
+  margin: 0px 0px 200px 67px;
+  border-radius: 15px; 
+  display: flex;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.chart-row h5{
+  margin: 50px 0px 60px 0px;
+  font-size: 2rem;
+}
+
+.chart-row img{
+  padding: 10px;
+  height: 100%;
+}
+
+.chart-row button, 
+.album-row button{
+  font-size: 1rem;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: ease 1s;
+  border-radius: 15px;
+  opacity: 0;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  border-style: none;
+}
+
+
+.chart-row button:hover,
+.album-row button:hover{
+  opacity: 0.9;
+}
+
+.btn-chart .fa-eye{
+  font-size: 20px;
+}
+
+.btn-action .fa-eye{
+  font-size: 13px;
+}
+
+.album-container, 
+.paket-container{
+  margin-bottom: 100px;
+}
+
+.album-row{
+  position: relative;
+  display: flex;
+  margin: 0px 0px 100px 67px;
+}
+
+.album-row img{
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+}
+
+.album-page{
+  display: grid;
+  place-items: center;
+  row-gap: 5px; 
+  margin-bottom: 100px;
+}
+
+.royalty-list-page{
+  display: grid;
+  place-items: center;
+  row-gap: 5px; 
+  margin-bottom: 100px;
+}
+
+.list-album,
+.riwayat-table{
+  height: 600px;
+  width: 40%;
+  border-radius: 20px;
+  border-style: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.riwayat-table{
+  margin: 300px 0px 100px 140px;
+  width: 990px
+}
+
+
+.list-album.one h5{
+  font-size: 1rem;
+  color: rgb(10, 236, 10);
+  font-weight: lighter;
+  margin:200px 0px 200px 248px;
+}
+
+.row-btn{
+  display: grid;
+  place-items: center;
+}
+
+.add-btn,
+.add-btn-one,
+.add-btn-two,
+.beli-paket,
+.kembali-btn{
+  border-color: rgb(10, 236, 10);
+  color: white;
+  border-radius: 10px;
+  padding: 15px 25px;
+  font-size: 15px;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: none;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 20px;
+  background: #080808;
+  transition: ease 1s;
+  cursor: pointer
+}
+
+.add-btn-one{
+  bottom: -115px;
+}
+
+.add-btn-two{
+  bottom: -166px;
+}
+
+.add-btn:hover,
+.add-btn-one:hover,
+.add-btn-two:hover,
+.beli-paket:hover,
+.kembali-btn:hover{
+  background-color: rgb(10, 236, 10);
+  color: white;
+  border-color: white;
+}
+
+.title h5{
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.royalty-list-page{
+  margin-bottom: 100px;
+}
+
+.album-page{
+  margin-bottom: 100px;
+}
+
+
+
+.input-album{
+  margin-bottom: 100px;
+}
+
+th, td{
+  padding: 1rem 30px;
+}
+
+
+thead th{
+  color: #fff;
+}
+
+tbody th{
+  color: #ffffff;
+  font-weight: lighter;
+}
+
+tbody{
+  margin-top: 20px;
+}
+
+tbody tr{
+  border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+}
+
+table{
+  margin: 20px 0px 20px 0px;
+}
+
+th button{
+  border-radius: 5px;
+  border-width: 0.5px;
+  font-size: 12px;
+  margin: 1px;
+  color: white;
+  padding: 7px;
+  border-style: none;
+  background: transparent;
+  transition: ease 0.5s;
+  font-weight: bold;
+}
+
+th button:hover{
+  color: rgb(10, 236, 10);
+}
+
+
+.album-content{
+  margin-top: 44px;
+  overflow: auto;
+  height: 70%;
+}
+
+.album-content.two{
+  height: 35%;
+}
+
+
+tbody th{
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+thead th{
+  border-bottom: 2px solid #ffffff33;
+}
+
+.album-description{
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 80%;
+  margin: 30px 0px 0px 50px;
+}
+
+.album-description h3{
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.album-description h3,
+.album-description h5{
+  color: #080808;
+}
+
+.user-btn{
+  margin-top: 30px;
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: center;
+  row-gap: 7px;
+}
+
+.user-btn button{
+  border-style: none;
+  color: white;
+  background-color: #080808;
+  padding: 7px 10px 9px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+  transition: ease 1s;
+  cursor: pointer;
+}
+
+.user-btn button:hover{
+  background-color: rgb(10, 236, 10);
+}
+
+.list-album.three{
+  height: 1050px;
+}
+
+.album-content.two{
+  margin-top: 10px;
+}
+
+.album-content.two h2{
+  text-align: center;
+  color: #080808;
+}
+
+button .fa-eye{
+  font-size: 22px;
+  margin-left: 10px;
+}
+
+.album-content.two table{
+  margin-left: 97px;
+}
+
+.fa-circle-minus{
+  font-size: 12px;
+}
+
+button.delete:hover{
+  color: red;
+}
+
+#daftar-lagu{
+  text-align: center;
+}
+
+#daftar-lagu h2{
+  color: #080808;
+}
+
+.input-album,
+.input-lagu{
+  background: rgba(8, 8, 8, 0.3);
+  padding: 100px;
+  border-radius: 15px;
+  height: 450px;
+  width: 500px;
+  position: relative;
+  box-shadow: 2px 2px 15px 2px #00000080;
+}
+
+.input-album{
+  margin-bottom: 100px;
+}
+
+.input-lagu{
+  width: 450px;
+  height: 350px;
+  padding-top: 50px;
+}
+
+.input-album #row-title,
+.input-lagu #row-title{
+  text-align: center;
+}
+
+.input-lagu #row-title{
+  margin-bottom: 50px;
+  padding-top: 0px;
+}
+
+.input-row{
+  position: relative;
+  width: 300px
+}
+
+
+.input-div {
+  position: relative;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  margin: 30px 0;
+  padding: 5px 0;
+  border-bottom: 2px solid #d9d9d9;
+  width: 100%;
+}
+
+.input-div::after,
+.input-div::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: #db4b23;
+  transition: 0.3s;
+}
+
+.input-div::after {
+  right: 50%;
+}
+
+.input-div::before {
+  left: 50%;
+}
+
+.input-div input{
+  color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  font-family: "Open Sans", sans-serif;
+}
+
+.input-div.focus div h5 {
+  top: -5px;
+  font-size: 15px;
+}
+
+.input-div.focus::after,
+.input-div.focus::before {
+  width: 50%;
+}
+
+.input-div > div {
+  position: relative;
+  height: 40px;
+}
+
+.input-div > div h5 {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.add-song-container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 300px;
+  padding: 0px;
+}
+
+
+#dropdown, #dropdown-2 {
+  padding: 10px 0px 10px 0px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-style: none;
+  overflow-x: auto;
+  width: 220px;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.3);
+}
+
+#dropdown-2{
+  width: 170px;
+  padding: 7px 0px 7px 0px;
+  font-size: 14px;
+  background: transparent;
+  border-style: none;
+  border-bottom: 1px solid #24ff78;
+  box-shadow: none;
+  border-radius: 0;
+  color: rgb(173, 168, 168);
+}
+
+/* Styling ketika dropdown di-hover */
+#dropdown:hover {
+  background-color: #f9f9f9;
+}
+
+
+
+/* Styling untuk dropdown ketika di-klik atau aktif */
+#dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  max-height: 50px;
+  overflow-y: scroll;
+}
+
+/* Styling untuk option dalam dropdown */
+#dropdown option {
+  padding: 15px 20px;
+}
+
+.input-lagu{
+  padding-left: 75px;
+  align-items: center;
+}
+
+
+.add-song-content{
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 100%;
+}
+
+.add-song-content h5{
+  font-size: 1rem;
+}
+
+.paket-container,
+.other-container{
+  display: grid;
+  grid-auto-flow: row;
+  place-items: center;
+  row-gap: 25px;
+  border-bottom: 100px;
+  position: relative;
+  border-bottom: 100px;
+}
+
+.paket-card{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.paket-card > div{
+  width: 200px;
+  height: 170px;
+  background: linear-gradient(to right, #080808, rgb(210, 5, 210));
+  border-radius: 20px;
+}
+
+
+.paket-card button{
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-style: none;
+  color: #080808;
+  position: absolute;
+  opacity: 0;
+  transition: ease 1s;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.paket-card button:hover{
+  opacity: 0.9
+}
+
+.paket-card div{
+  position: relative;
+  display: grid;
+  place-content: center;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.3);
+}
+
+.paket-card div h5{
+  margin: 5px 0px 0px 15px;
+}
+
+.paket-card div .harga{
+  margin: 5px 0px 0px 5px;
+}
+
+.btn-riwayat{
+  margin-left: 60px;
+}
+
+.btn-riwayat button{
+  background-color: transparent;
+  border-style: none;
+  color:rgb(10, 236, 10);
+  transition: ease 0.5s;
+  font-size: 14px;
+}
+
+.btn-riwayat button:hover{
+  color: white;
+}
+
+.paket-container{
+  margin-top: 50px;
+  position: relative;
+}
+
+.selected-paket div{
+  background: linear-gradient(to right, #080808, rgb(210, 5, 210));
+  height: 190px;
+  width: 700px;
+  border-style: none;
+  border-radius: 20px; 
+}
+
+.selected-paket h2,
+.selected-paket h3{
+  text-align: center;
+}
+
+
+.selected-paket h2{
+  padding-top: 60px;
+}
+
+.selected-paket div::after{
+  content: '';
+  width: 60%;
+  height: 1px;
+  background-color: rgb(212, 212, 212);
+  position: absolute;
+  left: 20%;
+  bottom: -30px;
+}
+
+
+.metode-pembayaran{
+  position:absolute;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  bottom: -100px;
+  left: 450px;
+  align-items: center;
+}
+
+.metode-pembayaran h3{
+  font-size: 13px;
+  font-weight: light;
+}
+
+.beli-paket{
+  position: absolute;
+  bottom: -200px;
+}
+
+.body-paket{
+  height: 1500px;
+}
+
+.riwayat-table .title{
+  text-align: center;
+  padding-top: 50px;
+}
+
+.riwayat-table h3{
+  color: #080808;
+}
+
+.riwayat-content{
+  overflow: auto;
+  height: 300px;
+  margin-top: 50px;
+}
+
+.other-row{
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr;
+}
+
+.other-row div{
+  margin: 0 10px;
+  position: relative;
+  width: 200px;
+  height: 100px;
+  background: rgba(8, 8, 8, 0.7);
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.3);
+  display: grid;
+  place-items: center;
+}
+
+.other-row h3{
+  font-size: 1rem;
+  align-content: center;
+}
+
+.other-row div button{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  border-style: none;
+  background: white;
+  border-radius: 15px;
+  opacity: 0;
+  transition: ease 1s;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.other-row div button:hover{
+  opacity: 1;
+}
+
+
+</style>
+<body>
+  <div class="container">
+    <nav>
+      <div>
+        <h5>Mar<span>mut</span></h5>
+        <h1>{{name}}</h1>
+      </div>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Chart</a></li>
+        <li><a href="#">Kelola playlist</a></li>
+        <li><a href="{% url 'main:album_list' %}" class="nav-album-song">Kelola Album & Song</a></li>
+        <li><a href="#">Cari lagu</a></li>
+        <li><a href="{% url 'main:royalty_list' %}">Royalti</a></li>
+        <li><a href="#">Langganan paket</a></li>
+      </ul>
+      <button class="logout-btn"><a href="{% url 'main:logout_user' %}">Logout</a></button>
+    </nav>
+  </div>
+    {% block content %}
+    {% endblock %}
+</body>
