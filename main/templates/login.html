@@ -61,6 +61,15 @@
             </form>
         </div>
     </div>
+    <div style="display: inline-block; position: relative; color: red; top: -386px; left: 459px">
+        {% if messages %}  
+            <ul>   
+                {% for message in messages %}  
+                    <li>{{ message }}</li>  
+                    {% endfor %}  
+            </ul>   
+        {% endif %}
+    </div>
 
     <script type="text/javascript" src="/static/js/main.js"></script>
 </body>

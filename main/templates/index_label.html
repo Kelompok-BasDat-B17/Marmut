@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    {% block meta %}
+    <title>Home</title>
+    {% endblock meta %}
+    <!-- Custom styles-path -->
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   
+</head>
+
+{% block content %}
+<body>
+    <div id="header">
+      <div class="container">
+        <nav>
+          <h5>Mar<span>mut</span></h5>
+          <ul>
+            <li><a href="#" class="nav-dashboard">Dashboard</a></li>
+            <li><a href="#">Chart</a></li>
+            <li><a href="#">Kelola playlist</a></li>
+            <li><a href="#">Cari lagu</a></li>
+            <li><a href="#">Langganan paket</a></li>
+            <li><a href="{% url 'main:album_list' %}">Kelola Album & Song</a></li>
+            <li><a href="{% url 'main:royalty_list' %}">Royalti</a></li>
+          </ul>
+          <a href="{% url 'main:logout' %}" style="text-decoration: none;">
+            <button class="logout-btn">
+              Logout
+            </button>
+          </a>
+        </nav>
+        <div class="dashboard-container">
+          <h2>Dashboard</h2>
+          <div class="user-information">
+            <div class="row row-name">
+              <h5>Id</h5>
+              <div class="textfield">
+                <p>{{id}}</p>
+              </div>
+            </div>
+            <div class="row row-email">
+              <h5>Nama</h5>
+              <div class="textfield">
+                <p>{{nama}}</p>
+              </div>
+            </div>
+            <div class="row row-hometown">
+              <h5>Email</h5>
+              <div class="textfield">
+                <p>{{email}}</p>
+              </div>
+            </div>
+            <div class="row row-gender">
+              <h5>Kontak</h5>
+              <div class="textfield">
+                <p>{{kontak}}</p>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="chart-container">
+    <div class="chart-title">
+      <h2>Chart</h2>
+    </div>
+    <div class="chart-row">
+      <img src="{% static 'img/chart.png' %}">
+      <h5>Nikmati pilihan lagu <br>terpopuler!</h5>
+      <button class="btn-chart">
+        Lihat Chart
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+  </div>
+  <div class="playlist-container">
+    <h2>Playlist</h2>
+    <div class="playlist-row">
+      <img src="{% static 'img/playlist_bg.png' %}">
+      <button class="btn-playlist">Tampilkan Playlist</button>
+    </div>
+  </div>
+  <div class="paket-container">
+    <h2>Langganan Paket</h2>
+    <div class="btn-riwayat">
+      <button>Riwayat Transaksi</button>
+    </div>
+    <div class="paket-row">
+      <div class="paket-card">
+        <div class="1-bulan">
+          <h3>Premium</h3>
+          <h5>1 Bulan</h5>
+          <h5 class="harga">Rp54.900</h5>
+          <button>Pilih Paket</button>
+        </div>
+        <div class="3-bulan">
+          <h3>Premium</h3>
+          <h5>3 Bulan</h5>
+          <h5 class="harga">Rp159.000</h5>
+          <button>Pilih Paket</button>
+        </div>
+        <div class="6-bulan">
+          <h3>Premium</h3>
+          <h5>6 Bulan</h5>
+          <h5 class="harga">Rp499.000</h5>
+          <button>Pilih Paket</button>
+        </div>
+        <div class="1-tahun">
+          <h3>Premium</h3>
+          <h5>1 Tahun</h5>
+          <h5 class="harga">Rp759.000</h5>
+          <button>Pilih Paket</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="other-container">
+    <h2>Menu Lainnya</h2>
+    <div class="other-row">
+      <div class="download-song">
+        <h3>Downloaded Songs</h3>
+        <button>Kelola Downloaded Songs</button>
+      </div>
+      <div class="podcast">
+        <h3>Podcast</h3>
+        <button>Kelola Podcast</button>
+      </div>
+      <div class="album-songs">
+        <h3>Album & Songs</h3>
+        <button>Kelola Album & Songs</button>
+      </div>
+      <div class="album">
+        <h3>Album</h3>
+        <button>Kelola Album</button>
+      </div>
+      <div class="royalti">
+        <h3>Royalti</h3>
+        <button>Cek Royalti</button>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+{% endblock content %}
+</html>

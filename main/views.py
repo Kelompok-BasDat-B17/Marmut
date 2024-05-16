@@ -9,6 +9,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+import uuid
+
 # Create your views here.
 def show_main(request):
     return render(request, "main.html")
@@ -19,8 +21,8 @@ def user_login(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         data = search_user(email, password)
-
         if len(data) != 0:
+
             user = authenticate(username=email,email=email, password=password)
             if user is not None:
                 login(request, user)
@@ -33,39 +35,52 @@ def user_login(request):
         else :
             data = search_label(email, password)
             if len(data) != 0:
-                user = authenticate(username=email,email=email, password=password)
+                uu_id = get_user_uu_id(email)
+                user = authenticate(username=uu_id,email=email, password=password)
                 if user is not None:
                     login(request, user)
                 else : 
-                    user = User.objects.create_user(email=email, password=password, username=email)
+                    uu_id = get_user_uu_id(email)
+                    user = User.objects.create_user(email=email, password=password, username=uu_id)
                     user.save()
                     login(request, user)
-                return HttpResponseRedirect(reverse('main:album_list'))
+                return HttpResponseRedirect(reverse('main:index'))
             else:
                 messages.info(request, 'Email or password is incorrect')
                 return render(request, "login.html")
                 
     return render(request, "login.html")
 
+def index(request):
+    email = request.user.email
+    role = get_user_type(email)
+    if role == "Label":
+        data = get_data_label(email)
+        return render(request, "index_label.html", {'id': data[0][0], 'nama': data[0][1], 'email': data[0][2], 'kontak': data[0][4]})
+    else:
+        return redirect('main:home_page')
+
 def register_option(request):
     return render(request, "register_base.html")
 
 def register_user(request):
     return render(request, "register_pengguna.html")
-
+@csrf_exempt
 def register_label(request):
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
         nama = request.POST.get("nama")
         kontak = request.POST.get("kontak")
-        data = search_label(email, password, nama, kontak)
+        data = search_label(email, password)
         if len(data) != 0:
             messages.info(request, 'Email already registered')
             return render(request, "register_label.html")
         else:
-            insert_label(email, password, nama, kontak)
-            user = User.objects.create_user(email=email, password=password, username=email)
+            uu_id = str(uuid.uuid4())
+            id_pemilik_hak_cipta = str(uuid.uuid4())
+            insert_label(uu_id, nama, email, password, kontak,id_pemilik_hak_cipta)
+            user = User.objects.create_user(email=email, password=password, username=uu_id)
             user.save()
             login(request, user)
             return HttpResponseRedirect(reverse('main:album_list'))
@@ -80,36 +95,78 @@ def royalty_list(request):
     name = get_user_name(email)
     return render(request, "royalty_list.html", {'royalty_list': royalty_list, 'name': name})
 
-def logout_user(request):
-    logout(request)
-    return redirect('main:user_login')
-    
-
 def album_list(request):
     email = request.user.email
+    index = request.user.username
     role = get_user_type(email)
     if role == "Label":
         name = get_label_name(email)
     else :
         name = get_user_name(email)
+    if role == "Label":
+        album_list = get_album_list_label(index)
+        return render(request, "album_list_label.html", {'album_list': album_list, 'name': name})
+    if role == "Artist":
+        album_list = get_album_list_artist(index)
+        return render(request, "album_list_artist.html", {'album_list': album_list, 'name': name})
+    if role == "Songwriter":
+        album_list = get_album_list_songwriter(index)
+        return render(request, "album_list_songwriter.html", {'album_list': album_list, 'name': name})
     
-    if role == "Label":
-        return render(request, "album_list_label.html", {'name': name})
-    if role == "Artist":
-        return render(request, "album_list_artist.html", {'name': name})
-    if role == "Songwriter":
-        return render(request, "album_list_songwriter.html", {'name': name})
+@csrf_exempt
+def homepage(request):
+    account = get_account(request.COOKIES.get("email"))
+    gender = ""
+    print(account)
+    if account[0][3] == 0:
+        gender = "Perempuan"
+    else:
+        gender = "Laki-laki"
+    context = {
+        "email": account[0][0],
+        "username": account[0][2],
+        "gender": gender,
+        "tempat_lahir": account[0][4],
+        "tanggal_lahir": account[0][5],
+        "kota_asal": account[0][7],
+        "subscription": request.COOKIES.get("subscription")
+    }
+    return render(request, "index.html", context)
 
-def album_list_song(request):
-    email = request.user.email
-    role = get_user_type(email)
+def logout(request):
+    response = HttpResponseRedirect(reverse('main:show_main'))
+    response.delete_cookie('email')
+    response.delete_cookie('subscription')
+    return response
+
+def album_detail(request, album_name):
+    role = get_user_type(request.user.email)
+    song_list = get_song_album(album_name)
+    if "'" in album_name:
+        album_name = album_name.replace("'", "''")
+
     if role == "Label":
-        name = get_label_name(email)
-    else :
-        name = get_user_name(email)
+        return render(request, "album_list_song_label.html", {'album_name': album_name, 'song_list': song_list})
+
+def delete_album(request, album_name):
+    if "'" in album_name:
+        album_name = album_name.replace("'", "''")
+        
+    delete_album_by_name(album_name)
+    return redirect('main:album_list')
+
+def delete_song(request, song_name):
+    if "'" in song_name:
+        song_name = song_name.replace("'", "''")
+    delete_song_by_name(song_name)
+    return redirect('main:album_list')
+
+def song_detail(request, song_name):
+    role = get_user_type(request.user.email)
+    if "'" in song_name:
+        song_name = song_name.replace("'", "''")
+    song_detail = get_song_detail(song_name)
     if role == "Label":
-        return render(request, "album_list_song_label.html", {'name': name})
-    if role == "Artist":
-        return render(request, "album_list_song_artist.html", {'name': name})
-    if role == "Songwriter":
-        return render(request, "album_list_song_songwriter.html", {'name': name})
+        return render(request, "song_detail_label.html", {'song_name': song_name, 'song_detail': song_detail})
+    if role == "Artist" or role == "Songwriter":
+        return render(request, "song_detail_artist.html", {'song_name': song_name, 'song_detail': song_detail})
