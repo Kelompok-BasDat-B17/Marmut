@@ -9,4 +9,6 @@ urlpatterns = [
     path('register-option/', register_option, name='register_option'),
     path('register-option/register-user/', register_user, name='register_user'),
     path('register-option/register-label/', register_label, name='register_label'),
+    path('login/homepage/', homepage, name="homepage"),
+    path('logout/', logout, name="logout")
 ]

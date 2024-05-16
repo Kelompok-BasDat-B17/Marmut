@@ -7,6 +7,11 @@ def search_user(email: str, password: str):
   data = get_data(query)
   return data
 
+def get_account(email: str):
+  query = f"SELECT * FROM AKUN WHERE email = '{email}'"
+  data = get_data(query)
+  return data
+
 def get_subscription(email: str):
   query = f"SELECT * FROM PREMIUM WHERE email = '{email}'"
   data = get_data(query)
@@ -18,6 +23,7 @@ def check_subscription(email: str):
   is_premium = get_subscription(email)
   if is_premium == True:
     expired = get_data(f"SELECT check_subscription('{email}')")
+    print(expired)
     if expired[0] == True:
       delete(f"DELETE FROM PREMIUM WHERE email = '{email}'")
       insert(f"INSERT INTO NON_PREMIUM VALUES ('{email}')")
