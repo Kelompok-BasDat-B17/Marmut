@@ -17,6 +17,6 @@ urlpatterns = [
     path('delete_song/<str:song_name>/', delete_song, name='delete_song'),
     path('royalty_list/', royalty_list, name='royalty_list'),
     path('homepage/', homepage, name="homepage"),
-    path('logout/', logout, name="logout")
-    
+    path('logout/', logout, name="logout"),
+    path('create_album/', create_album, name='create_album'),
 ]

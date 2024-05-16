@@ -1,0 +1,188 @@
+{% extends 'kelola_album_song.html' %}
+{% block content %}
+
+  <div id="header-album-songwriter">
+    <div class="album-page">
+      <h2>Create Song</h2>
+      <div class="album-song-form" style="
+        height: 700px;
+        width: 50%;
+        border-radius: 20px;
+        border-style: none;
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 50px;
+        justify-content: center;
+        align-content: center;
+        "> 
+
+      <div style="display: flex;
+      justify-content: center;
+      align-items: center;">
+        <h3>Create Lagu</h3>
+      </div>
+      <!--Form Style-->
+      <style>
+        form {
+          padding: 20px;
+          border-radius: 5px;
+          width: 500px;
+          margin: auto;
+        }
+      
+        form div {
+          margin-bottom: 0px;
+        }
+      
+        form label {
+          display: block;
+          margin-bottom: 5px;
+        }
+      
+        form input, form select {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ced4da;
+          margin-bottom: 10px;
+        }
+      
+        form button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      
+        form button:hover {
+          background-color: #0056b3;
+        }
+      </style>
+
+        <form action="" method="post">
+          <div>
+            <label for="album-name">Album</label>
+            <input type="text" name="album-name" id="album-name" placeholder="Album 1" disabled style="color: #ffff;">
+          </div>
+          <div>
+            <label for="song-name">Judul </label>
+            <input type="text" name="song-name" id="song-name" placeholder="Masukkan nama lagu">
+          </div>
+          <!--Artist Dropdonw-->
+          <div>
+            <label for="song-artist">Artist </label>
+            <select name="song-artist" id="song-artist">
+              <option value="artist1">Artist 1</option>
+              <option value="artist2">Artist 2</option>
+              <option value="artist2">Artist 3</option>
+              <option value="artist2">Artist 4</option>
+            </select>
+          </div>
+          <!--Songwriter-->
+          <div>
+            <label for="song-songwriter">Songwriter</label>
+            <input type="text" name="album-name" id="album-name" placeholder="Songwriter 1" disabled style="color: #ffff;">
+          </div>
+          <!--Genre Form-->
+          <style>
+            .multiselect {
+              width: 200px;
+            }
+
+            .selectBox {
+              position: relative;
+            }
+
+            .selectBox select {
+              width: 100%;
+              font-weight: bold;
+            }
+
+            .overSelect {
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+            }
+
+            #checkboxes {
+              display: none;
+              border: 1px #dadada solid;
+            }
+
+            #checkboxes label {
+              display: block;
+            }
+
+            #checkboxes label:hover {
+              background-color: #1e90ff;
+            }
+          </style>
+
+          <script>
+            var expanded = false;
+
+            function showCheckboxes() {
+              var checkboxes = document.getElementById("checkboxes");
+              if (!expanded) {
+                checkboxes.style.display = "block";
+                expanded = true;
+              } else {
+                checkboxes.style.display = "none";
+                expanded = false;
+              }
+            }
+          </script>
+
+          <div class="song-genre">
+            <label for="song-songwriter">Genre</label>
+            <div class="selectBox" onclick="showCheckboxes()">
+              <select>
+                <option>Pilih Genre</option>
+              </select>
+            </div>
+            <div id="checkboxes">
+              <label for="one">
+                <input type="checkbox" id="genre1" />Genre 1</label>
+              <label for="two">
+                <input type="checkbox" id="genre2" />Genre 2</label>
+              <label for="three">
+                <input type="checkbox" id="genre3" />Genre 3</label>
+            </div>
+          </div>
+          <!--Song Duration-->
+          <div>
+            <label for="song-duration">Durasi </label>
+            <input type="number" name="song-duration" id="song-duration" placeholder="Masukkan durasi lagu">
+          </div>
+        </form>
+        <div>
+          <button style="
+            display: block;
+            margin: 0 auto;
+            color: white;
+            border-color: rgb(10, 236, 10);
+            border-radius: 10px;
+            padding: 15px 25px;
+            border-width: 1px;
+            border-style: none;
+            font-size: 15px;
+            font-weight: bold;
+            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+            background: #080808;
+            transition: ease 1s;
+            cursor: pointer;
+            
+          ">
+          Submit
+          </button>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="js/main.js"></script>
+{% endblock %}

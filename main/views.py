@@ -30,7 +30,7 @@ def user_login(request):
                 user = User.objects.create_user(email=email, password=password, username=email)
                 user.save()
                 login(request, user)
-            return HttpResponseRedirect(reverse('main:album_list'))
+            return HttpResponseRedirect(reverse('main:index'))
         
         else :
             data = search_label(email, password)
@@ -58,7 +58,7 @@ def index(request):
         data = get_data_label(email)
         return render(request, "index_label.html", {'id': data[0][0], 'nama': data[0][1], 'email': data[0][2], 'kontak': data[0][4]})
     else:
-        return redirect('main:home_page')
+        return redirect('main:homepage')
 
 def register_option(request):
     return render(request, "register_base.html")
@@ -83,7 +83,7 @@ def register_label(request):
             user = User.objects.create_user(email=email, password=password, username=uu_id)
             user.save()
             login(request, user)
-            return HttpResponseRedirect(reverse('main:album_list'))
+            return HttpResponseRedirect(reverse('main:index_label'))
     return render(request, "register_label.html")
 
 def royalty_list(request):
@@ -115,9 +115,8 @@ def album_list(request):
     
 @csrf_exempt
 def homepage(request):
-    account = get_account(request.COOKIES.get("email"))
-    gender = ""
-    print(account)
+    account = get_account(request.user.email)
+    gender = "" 
     if account[0][3] == 0:
         gender = "Perempuan"
     else:
@@ -140,13 +139,10 @@ def logout(request):
     return response
 
 def album_detail(request, album_name):
-    role = get_user_type(request.user.email)
     song_list = get_song_album(album_name)
     if "'" in album_name:
         album_name = album_name.replace("'", "''")
-
-    if role == "Label":
-        return render(request, "album_list_song_label.html", {'album_name': album_name, 'song_list': song_list})
+    return render(request, "album_list_song.html", {'song_list': song_list, 'album_name': album_name})
 
 def delete_album(request, album_name):
     if "'" in album_name:
@@ -162,11 +158,10 @@ def delete_song(request, song_name):
     return redirect('main:album_list')
 
 def song_detail(request, song_name):
-    role = get_user_type(request.user.email)
     if "'" in song_name:
         song_name = song_name.replace("'", "''")
     song_detail = get_song_detail(song_name)
-    if role == "Label":
-        return render(request, "song_detail_label.html", {'song_name': song_name, 'song_detail': song_detail})
-    if role == "Artist" or role == "Songwriter":
-        return render(request, "song_detail_artist.html", {'song_name': song_name, 'song_detail': song_detail})
+    return render(request, "song_detail.html", {'song_detail': song_detail})
+   
+def create_album(request):
+    return render(request, "create_album.html")

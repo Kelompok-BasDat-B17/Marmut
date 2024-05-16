@@ -38,10 +38,11 @@ def check_subscription(email: str):
 
 def get_royalty_list(email: str):  
   id_pemilik_hak_cipta = get_id_pemilik_hak_cipta_label(email)
-  if id_pemilik_hak_cipta == None:
+  if id_pemilik_hak_cipta == []:
     id_pemilik_hak_cipta = get_id_pemilik_hak_cipta_artist(email)
-  if id_pemilik_hak_cipta == None:
+  if id_pemilik_hak_cipta == []:
     id_pemilik_hak_cipta = get_id_pemilik_hak_cipta_songwriter(email)
+  id_pemilik_hak_cipta = id_pemilik_hak_cipta[0][0]
   query = f"SELECT * FROM GetRoyaltiesByCopyrightOwner('{id_pemilik_hak_cipta}');"
   data = get_data(query)
   return data
@@ -49,17 +50,17 @@ def get_royalty_list(email: str):
 def get_id_pemilik_hak_cipta_label(email: str):
   query = f"SELECT id_pemilik_hak_cipta FROM LABEL WHERE email = '{email}'"
   data = get_data(query)
-  return data[0][0]
+  return data
 
 def get_id_pemilik_hak_cipta_artist(email: str):
   query = f"SELECT id_pemilik_hak_cipta FROM ARTIST WHERE email_akun = '{email}'"
   data = get_data(query)
-  return data[0][0]
+  return data
 
 def get_id_pemilik_hak_cipta_songwriter(email: str):
   query = f"SELECT id_pemilik_hak_cipta FROM SONGWRITER WHERE email_akun = '{email}'"
   data = get_data(query)
-  return data[0][0]
+  return data
 
 def get_user_name(email: str):
   query = f"SELECT nama FROM AKUN WHERE email = '{email}'"
@@ -121,13 +122,13 @@ def get_user_uu_id(email: str):
   data = get_data(query)
   return data[0][0]
 
-def get_album_list_artist(uu_id: str):
-  query = f"SELECT * FROM FindAlbumsByArtistId('{uu_id}');"
+def get_album_list_artist(email: str):
+  query = f"SELECT * FROM FIND_ALBUMS_BY_SONGWRITER_EMAIL('{email}');"
   data = get_data(query)
   return data
 
-def get_album_list_songwriter(uu_id: str):
-  query = f"SELECT * FROM FindAlbumsBySongwriterId('{uu_id}');"
+def get_album_list_songwriter(email: str):
+  query = f"SELECT * FROM FIND_ALBUMS_BY_SONGWRITER_EMAIL('{email}');"
   data = get_data(query)
   return data
 
