@@ -112,8 +112,13 @@ def get_data_label(email: str):
   data = get_data(query)
   return data
 
-def get_album_list_label(uu_id: str):
-  query = f"SELECT * FROM FindAlbumsByLabelId('{uu_id}');"
+def get_album_list_label(email: str):
+  query = f"SELECT * FROM get_album_info_by_label_email('{email}')"
+  data = get_data(query)
+  return data
+
+def get_album_list_non_label(email: str):
+  query = f"SELECT * FROM get_all_album_details()"
   data = get_data(query)
   return data
 
@@ -122,45 +127,68 @@ def get_user_uu_id(email: str):
   data = get_data(query)
   return data[0][0]
 
-def get_album_list_artist(email: str):
-  query = f"SELECT * FROM get_album_details();"
+
+def get_song_detail(song_id: str):
+  query = f"SELECT * FROM get_song_details_by_id('{song_id}')"
   data = get_data(query)
   return data
 
-def get_album_list_songwriter(email: str):
-  query = f"SELECT * FROM get_album_details();"
+def get_album_id_by_song_id(song_id: str):
+  query = f"SELECT id_album FROM SONG WHERE id_konten = '{song_id}'"
+  data = get_data(query)
+  return data[0][0]
+
+def get_song_list(album_id: str):
+  query = f"SELECT * FROM get_song_details_by_album_id('{album_id}')"
   data = get_data(query)
   return data
 
-def get_song_detail(song_name: str):
-  query = f"SELECT * FROM GET_SONG_DETAIL('{song_name}');"
+def get_album_name(album_id: str):
+  query = f"SELECT judul FROM ALBUM WHERE id = '{album_id}'"
   data = get_data(query)
-  return data
+  return data[0][0]
 
-def get_song_album(album_name: str):
-  query = f"SELECT * FROM SHOW_SONG_STATS_BY_ALBUM('{album_name}');"
-  data = get_data(query)
-  return data
-
-def delete_album_by_name(album_name: str):
-  query = f"SELECT id FROM ALBUM WHERE judul = '{album_name}'"
-  album_id = get_data(query)
-  if album_id == []:
-    return False
-  album_id = album_id[0][0]
-  query = f"DELETE FROM ALBUM WHERE id = '{album_id}'"
+def delete_album_by_id(album_id: str):
+  query = f"SELECT delete_album_and_related_data('{album_id}')"
   delete(query)
-  return True
 
-def delete_song_by_name(song_name: str):
-  query = f"SELECT id FROM KONTEN WHERE judul = '{song_name}'"
-  song_id = get_data(query)
-  if song_id == []:
-    return False
-  song_id = song_id[0][0]
+def delete_song_by_id(song_id: str):
+  # Kurang Durasi dan Waktu Album
+  album_id = get_album_id_by_song_id(song_id)
+  album_count = get_album_song_count(album_id)
+  album_duration = get_album_duration(album_id)
+  song_duration = get_song_detail(song_id)[0][6]
+
+  album_count -= 1
+  album_duration -= song_duration
+  query = f"UPDATE ALBUM SET jumlah_lagu = {album_count}, total_durasi = {album_duration} WHERE id = '{album_id}'"
+  insert(query)
+
+  # Delete from ROYALTI
+  query = f"DELETE FROM ROYALTI WHERE id_song = '{song_id}'"
+  delete(query)
+
+  # Delete from KONTEN
   query = f"DELETE FROM KONTEN WHERE id = '{song_id}'"
   delete(query)
-  return True
+
+  # Delete from SONGWRITER_WRITE_SONG
+  query = f"DELETE FROM SONGWRITER_WRITE_SONG WHERE id_song = '{song_id}'"
+  delete(query)
+
+  # Delete from SONG
+  query = f"DELETE FROM SONG WHERE id_konten = '{song_id}'"
+  delete(query)
+
+  # Delete from GENRE
+  query = f"DELETE FROM GENRE WHERE id_konten = '{song_id}'"
+
+  
+def get_song_label_id(song_id: str):
+  query = f"SELECT id_label FROM SONG WHERE id = '{song_id}'"
+  data = get_data(query)
+  return data[0][0]
+
 
 def get_label_list():
   query = "SELECT nama FROM LABEL"
@@ -191,10 +219,9 @@ def get_artist_list():
   data = get_data(query)
   return data
 
-def add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_genre, song_duration, album_name):
+def add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_genre, song_duration, album_id):
   date = dt.now().strftime("%Y-%m-%d")
   year = date.split("-")[0]
-  album_id = get_album_id_by_name(album_name)
   # KONTEN
   query = f"INSERT INTO KONTEN VALUES ('{song_id}', '{song_name}', CURRENT_DATE, {year}, {song_duration})"
   insert(query)
@@ -212,7 +239,7 @@ def add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_ge
   query = f"INSERT INTO ROYALTI VALUES ('{id_phc_songwriter}', '{song_id}', '{0}')"
   insert(query)
   
-  id_phc_label = get_id_phc_label_by_album(album_name)
+  id_phc_label = get_id_phc_label_by_album(album_id)
   query = f"INSERT INTO ROYALTI VALUES ('{id_phc_label}', '{song_id}', '{0}')"
   insert(query)
   
@@ -228,7 +255,11 @@ def add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_ge
   # Tambah Durasi dan Jumlah Lagu Album
   durasi_album_baru = get_album_duration(album_id) + int(song_duration)
   jumlah_lagu_baru = get_album_song_count(album_id) + 1
+  print("ini", durasi_album_baru, jumlah_lagu_baru)
+
+  # update ALBUM
   query = f"UPDATE ALBUM SET total_durasi = {durasi_album_baru}, jumlah_lagu = {jumlah_lagu_baru} WHERE id = '{album_id}'"
+  insert(query)
 
 def get_songwriter_id(song_writer):
   query = f"SELECT get_songwriter_id_by_name('{song_writer}')"
@@ -256,8 +287,8 @@ def get_akun_email_by_name(artist_name):
   data = get_data(query)
   return data[0][0]
 
-def get_id_phc_label_by_album(album_name):
-  query = f"SELECT id_label FROM ALBUM WHERE judul = '{album_name}'"
+def get_id_phc_label_by_album(album_id):
+  query = f"SELECT id_label FROM ALBUM WHERE id = '{album_id}'"
   data = get_data(query)
   id_phc_label = get_id_phc_label_by_id(data[0][0])
   return id_phc_label
@@ -282,10 +313,14 @@ def get_songwriter_list():
   data = get_data(query)
   return data
 
-def add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genres, song_duration, album_name):
+def add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genres, song_duration, album_id):
   date = dt.now().strftime("%Y-%m-%d")
   year = date.split("-")[0]
-  album_id = get_album_id_by_name(album_name)
+  id_phc_artist = get_id_phc_artist_by_id(song_artist_id)
+  id_phc_label = get_id_phc_label_by_album(album_id)
+  durasi_album_baru = get_album_duration(album_id) + int(song_duration)
+  jumlah_lagu_baru = get_album_song_count(album_id) + 1
+
   # KONTEN
   query = f"INSERT INTO KONTEN VALUES ('{song_id}', '{song_name}', CURRENT_DATE, {year}, {song_duration})"
   insert(query)
@@ -295,7 +330,6 @@ def add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genre
   insert(query)
 
   # ROYALTI
-  id_phc_artist = get_id_phc_artist_by_id(song_artist_id)
   query = f"INSERT INTO ROYALTI VALUES ('{id_phc_artist}', '{song_id}', '{0}')"
   insert(query)
 
@@ -304,12 +338,10 @@ def add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genre
     query = f"INSERT INTO ROYALTI VALUES ('{id_phc_songwriter}', '{song_id}', '{0}')"
     insert(query)
   
-  id_phc_label = get_id_phc_label_by_album(album_name)
   query = f"INSERT INTO ROYALTI VALUES ('{id_phc_label}', '{song_id}', '{0}')"
   insert(query)
   
   # GENRE
-
   for genre in song_genres:
     query = f"INSERT INTO GENRE VALUES ('{song_id}', '{genre}')"
     insert(query)
@@ -319,11 +351,9 @@ def add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genre
     song_writer_id = get_songwriter_id(song_writer)
     query = f"INSERT INTO SONGWRITER_WRITE_SONG VALUES ('{song_writer_id}', '{song_id}')"
     insert(query)
-
   # Tambah Durasi dan Jumlah Lagu Album
-  durasi_album_baru = get_album_duration(album_id) + int(song_duration)
-  jumlah_lagu_baru = get_album_song_count(album_id) + 1
   query = f"UPDATE ALBUM SET total_durasi = {durasi_album_baru}, jumlah_lagu = {jumlah_lagu_baru} WHERE id = '{album_id}'"
+  insert(query)
 
 def get_artist_id_by_name(artist_name):
   # Get Email From AKUN

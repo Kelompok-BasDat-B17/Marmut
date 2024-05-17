@@ -76,10 +76,10 @@
       <tbody>
         {% for song in song_list %}
       <tr>
-        <td>{{song.0}}</td>
         <td>{{song.1}}</td>
         <td>{{song.2}}</td>
         <td>{{song.3}}</td>
+        <td>{{song.4}}</td>
         <td>
           <form action="{% url 'main:song_detail' song.0 %}" method="get">
               <button type="submit">Lihat Detail Lagu</button>
