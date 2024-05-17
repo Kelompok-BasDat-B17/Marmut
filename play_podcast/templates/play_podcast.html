@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block meta %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Podcast Details</title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .border{
+            min-height: 500px;
+            width: 1000px;
+            border-radius: 20px;
+            border-style: none;
+            background-color: rgba(255, 255, 255, 0.3);
+            position: relative;
+            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .podcast-details{
+            color: white; /* Set the text color to white */
+            width: 80%;
+            margin: auto;
+        }
+
+        .podcast-details p {
+            margin-top: 20px; /* Jarak ke elemen di atasnya */
+            margin-bottom: 20px; /* Jarak ke elemen di bawahnya */
+        }
+        
+        .podcast-details p:first-child {
+            margin-top: 40px; /* Jarak lebih besar di bagian atas elemen pertama */
+        }
+
+        .podcast-details p:last-child {
+            margin-bottom: 20px; /* Jarak lebih besar di bagian bawah elemen terakhir */
+        }
+
+        .user-btn button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #000; /* Initial black color */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transition for hover effect */
+        }
+
+        .user-btn button:hover {
+            background-color: #4CAF50; /* Green when hovered */
+        }
+
+        .back-btn {
+            margin: 10px;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            float: left;
+            color: white; /* Initial white color */
+        }
+
+        .back-btn i {
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover i {
+            color: black; /* Change color on hover */
+        }
+        
+        .episode-list h2 {
+            text-align: center;
+        }
+        
+        .list-playlist .episode-list table {
+            width: 100%; /* Make table use up all the horizontal space of its parent */
+            border-collapse: collapse; /* Optional: reduces spacing between borders */
+            margin-left: 0; /* Remove any margin on the left */
+            margin-right: 0; /* Remove any margin on the right */
+        }
+
+        .list-playlist .episode-list th, .list-playlist .episode-list td {
+            padding: 8px; /* Adjust cell padding */
+            text-align: left; /* Align text to the left */
+            font-size: 0.8em;
+        }
+
+        .container {
+            padding: 0; /* Ensure the container has no padding */
+            width: 100%; /* Optional: ensure container takes full width if not already set */
+        }
+
+        .episode-list table td, .episode-list table th {
+            font-size: 0.8em !important;
+        }
+    </style>
+</head>
+{% endblock meta %}
+
+{% block content %}
+<body>
+    <div id="header-playlist">
+        <div class="container">
+            <nav>
+              <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+            </nav>
+        </div>
+    </div>
+    <div class="playlist-page two">
+        <h2>Podcast Detail</h2>
+        <div class="border">
+            <div class="podcast-details">
+                <p><strong>Judul:</strong> {{ podcast_detail.judul }}</p>
+                <p><strong>Genre(s):</strong> {% for genre in podcast_detail.genre %}
+                    {{ genre }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </p>
+                <p><strong>Podcaster:</strong> {{ podcast_detail.podcaster }}</p>
+                <p><strong>Total Durasi:</strong> {% if podcast_detail.total_durasi_hours %}
+                    {{ podcast_detail.total_durasi_hours }} jam {% endif %}
+                  {{ podcast_detail.total_durasi_minutes }} menit
+                </p>
+                <p><strong>Tanggal Rilis:</strong> {{ podcast_detail.tanggal_rilis }}</p>
+                <p><strong>Tahun: </strong>{{ podcast_detail.tahun }}</p>
+            </div>
+
+            <div class = "user-btn">
+                <button onclick="window.history.back();">Kembali</button>
+            </div>
+            <div class="episode-list">
+                <h2>Daftar Episode</h2>
+                <table>
+                    <tr>
+                        <th>Judul Episode</th>
+                        <th>Deskripsi</th>
+                        <th>Durasi</th>
+                        <th>Tanggal</th>
+                    </tr>
+                    {% for episode in episodes %}
+                        <tr>
+                            <td>{{ episode.judul }}</td>
+                            <td>{{ episode.deskripsi }}</td>
+                            <td>{{ episode.durasi }}</td>
+                            <td>{{ episode.tanggal_rilis }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+{% endblock content %}
+</html>

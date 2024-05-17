@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
     'main',
+    'play_podcast',
+    'play_song',
+    'play_user_playlist',
+    'melihat_chart',
 ]
 
 MIDDLEWARE = [
