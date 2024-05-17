@@ -19,7 +19,7 @@
       
       <div class="album-list-two" style="
         height: 600px;
-        width: 70%;
+        width: 60%;
         border-radius: 20px;
         border-style: none;
         background-color: rgba(255, 255, 255, 0.3);
@@ -64,8 +64,8 @@
               <form action="{% url 'main:album_detail' album.0 %}" method="get">
                 <button type="submit">Lihat Daftar Lagu</button>
               </form>
-                <form action="" method="get">
-                <button type="submit">Tambah Album</button>
+                <form action="{% url 'main:create_song_artist' album.0 %}" method="get">
+                <button type="submit">Tambah Lagu</button>
               </form>
                 <form action="{% url 'main:delete_album' album.0 %}" method="get">
                 <button type="submit">Hapus</button>
@@ -79,6 +79,7 @@
       </div>
         <!-- button-->
         <div>
+          <a href="http://127.0.0.1:8000/create_album/">
           <button style="
             display: block;
             margin: 0 auto;
@@ -98,265 +99,10 @@
           ">
           Tambah album
           </button>
+        </a>
         </div>
       </div>
-
       {% endif %}
-      <div class="album-list-form" style="
-        height: 500px;
-        width: 50%;
-        border-radius: 20px;
-        border-style: none;
-        background-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-        margin-bottom: 50px;
-        justify-content: center;
-        align-content: center;
-
-        "> 
-
-      <div style="display: flex;
-      justify-content: center;
-      align-items: center;">
-        <h3>Create Album</h3>
-      </div>
-      <!--Form Style-->
-      <style>
-        form {
-          padding: 20px;
-          border-radius: 5px;
-          width: 500px;
-          margin: auto;
-        }
-      
-        form div {
-          margin-bottom: 0px;
-        }
-      
-        form label {
-          display: block;
-          margin-bottom: 5px;
-        }
-      
-        form input, form select {
-          width: 100%;
-          padding: 10px;
-          border-radius: 5px;
-          border: 1px solid #ced4da;
-          margin-bottom: 10px;
-        }
-      
-        form button {
-          background-color: #007bff;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-      
-        form button:hover {
-          background-color: #0056b3;
-        }
-      </style>
-
-        <form action="" method="post">
-          <div>
-            <label for="album-name">Judul </label>
-            <input type="text" name="album-name" id="album-name" placeholder="Masukkan nama album">
-          </div>
-          <div>
-            <label for="album-label">Label </label>
-            <select name="album-label" id="album-label">
-              <option value="label1">Label 1</option>
-              <option value="label2">Label 2</option>
-              <!-- Add more options as needed -->
-            </select>
-          </div>
-        </form>
-        <div>
-          <button style="
-            display: block;
-            margin: 0 auto;
-            color: white;
-            border-color: rgb(10, 236, 10);
-            border-radius: 10px;
-            padding: 15px 25px;
-            border-width: 1px;
-            border-style: none;
-            font-size: 15px;
-            font-weight: bold;
-            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-            background: #080808;
-            transition: ease 1s;
-            cursor: pointer;
-            
-          ">
-          Submit
-          </button>
-        </div> 
-      </div>
-
-      <div class="list-album one">
-        <div style="display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 90%;">
-          <h1>Anda belum memiliki Lagu</h1>
-        </div>
-        <div class="row-btn">
-          <button class="add-btn">
-            Kembali
-          </button>
-        </div>
-      </div>
-
-      <div class="album-song-list two" style="
-        height: 600px;
-        width: 50%;
-        border-radius: 20px;
-        border-style: none;
-        background-color: rgba(255, 255, 255, 0.3);
-        box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-        padding-top: 50px;
-        margin-bottom: 50px;
-        ">
-        <div style="display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 30px;
-          ">
-          <h3>Daftar Lagu Pada Album 1</h3>
-        </div>
-        <!-- <div class="album-list"> -->
-        <div
-        style="overflow-y: auto;
-        height: 70%;
-        display: flex; 
-        justify-content: center;
-        margin-bottom: 30px;">
-        <table >
-          <thead>
-            <tr>
-              <th>Judul</th>
-              <th>Durasi</th>
-              <th>Total Play</th>
-              <th>Total Download</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <div>
-          <tbody>
-          <tr>
-            <td>Lagu1</td>
-            <td>2 Menit</td>
-            <td>10</td>
-            <td>0</td>
-            <td>
-              <button class="view-song-btn">
-                Lihat detail
-              </button>
-              <button class="del-album-btn">
-                Hapus
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Lagu2</td>
-            <td>3 Menit</td>
-            <td>10</td>
-            <td>0</td>
-            <td>
-              <button class="view-song-btn">
-                Lihat detail
-              </button>
-              <button class="del-album-btn">
-                Hapus
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Lagu3</td>
-            <td>4 Menit</td>
-            <td>10</td>
-            <td>0</td>
-            <td>
-              <button class="view-song-btn">
-                Lihat detail
-              </button>
-              <button class="del-album-btn">
-                Hapus
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Lagu4</td>
-            <td>5 Menit</td>
-            <td>10</td>
-            <td>0</td>
-            <td>
-              <button class="view-song-btn">
-                Lihat detail
-              </button>
-              <button class="del-album-btn">
-                Hapus
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Lagu5</td>
-            <td>6 Menit</td>
-            <td>10</td>
-            <td>0</td>
-            <td>
-              <button class="view-song-btn">
-                Lihat detail
-              </button>
-              <button class="del-album-btn">
-                Hapus
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>Lagu6</td>
-            <td>7 Menit</td>
-            <td>10</td>
-            <td>0</td>
-            <td>
-              <button class="view-song-btn">
-                Lihat detail
-              </button>
-              <button class="del-album-btn">
-                Hapus
-              </button>
-            </td>
-            </tr>
-        </tbody>
-        </table>
-      </div>
-        <!-- button-->
-        <div>
-          <button style="
-            display: block;
-            margin: 0 auto;
-            margin-bottom: 30px;
-            color: white;
-            border-color: rgb(10, 236, 10);
-            border-radius: 10px;
-            padding: 15px 25px;
-            border-width: 1px;
-            border-style: none;
-            font-size: 15px;
-            font-weight: bold;
-            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-            background: #080808;
-            transition: ease 1s;
-            cursor: pointer
-          ">
-          Kembali
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 

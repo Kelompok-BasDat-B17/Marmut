@@ -26,7 +26,7 @@
         form {
           padding: 20px;
           border-radius: 5px;
-          width: 500px;
+          width: 90%;
           margin: auto;
         }
       
@@ -72,36 +72,27 @@
             <label for="song-name">Judul </label>
             <input type="text" name="song-name" id="song-name" placeholder="Masukkan nama lagu">
           </div>
-          <!--Artist Dropdonw-->
+          <!--Artist Name -->
           <div>
             <label for="song-artist">Artist </label>
-            <select name="song-artist" id="song-artist">
-              {% for artist in artist_list %}
-              <option value="{{artist.0}}">{{artist.1}}</option>
-              {% endfor %}
-            </select>
+            <input type="hidden" name="song-artist" value="{{ artist_name }}">
+            <input type="text" name="song-artist" id="song-artist" value="{{artist_name}}" disabled style="color: #ffff;">
           </div>
-          <!--Songwriter-->
-          <div>
-            <label for="song-songwriter">Songwriter</label>
-            <input type="hidden" name="song-writer" value="{{ songwriter_name }}">
-            <input type="text" name="song-writer" id="songwriter" value="{{songwriter_name}}" disabled style="color: #ffff;">
-          </div>
-          <!--Genre Form-->
+          <!--MultiSelect Style-->
           <style>
             .multiselect {
-              width: 200px;
+              width: 100%;
             }
-
+          
             .selectBox {
               position: relative;
             }
-
+          
             .selectBox select {
               width: 100%;
               font-weight: bold;
             }
-
+          
             .overSelect {
               position: absolute;
               left: 0;
@@ -110,59 +101,85 @@
               bottom: 0;
             }
             
-            #checkboxes {
+            .checkboxes {
               display: none;
+              width: 100%;
+              color: #080808;
+              background-color: #f9f9f9;
               border: 1px #dadada solid;
+              max-height: 100px; /* adjust max height as needed */
+              overflow-y: auto; 
             }
-
-            #checkboxes label {
+          
+            .checkboxes label {
               display: block;
             }
-
-            #checkboxes label:hover {
+          
+            .checkboxes label:hover {
               background-color: #1e90ff;
             }
           </style>
-
-          <!-- Genre Dropdown Script-->
-          <script>
-            var expanded = false;
-            function showCheckboxes() {
-              var checkboxes = document.getElementById("checkboxes");
-              if (!expanded) {
-                checkboxes.style.display = "block";
-                checkboxes.style.maxHeight = "200px";
-                checkboxes.style.maxWidth = "500px";
-                checkboxes.style.position = "absolute"; 
-                checkboxes.style.overflowY = "auto";  
-                expanded = true;
-              } else {
-                checkboxes.style.display = "none";
-                checkboxes.style.maxHeight = "";
-                checkboxes.style.maxWidth = "";
-                checkboxes.style.position = "";  
-                checkboxes.style.overflowY = "";    
-                expanded = false;
-              }
-            }
-          </script>
-
-          <!--Genre Form-->
-          <div class="song-genre">
-            <label for="song-songwriter">Genre</label>
-            <div class="selectBox" onclick="showCheckboxes()">
+          <!-- Genre Dropdown -->
+          <div class="multiselect">
+            <label for="genres">Genres</label>
+            <div class="selectBox" onclick="showCheckboxes('genres')">
               <select>
-                <option>Pilih Genre</option>
+                <option id="genre">Select Genres</option>
               </select>
             </div>
-            <div id="checkboxes">
+            <div id="genresCheckboxes" class="checkboxes">
               {% for genre in genres %}
-              <label for="one">
-                <input type="checkbox" id="{{genre}}" name="song-genre" value="{{genre}}"/>{{genre}}
-              </label>
+              <label><input type="checkbox" name="song-genre" value="{{genre}}">{{genre}}</label>
               {% endfor %}
+              <!-- Add more genres as needed -->
             </div>
           </div>
+
+          <!-- Songwriter Dropdown -->
+          <div class="multiselect">
+            <label for="songwriters">Songwriters</label>
+            <div class="selectBox" onclick="showCheckboxes('songwriters')">
+              <select>
+                <option id="songwriters">Select Songwriters</option>
+              </select>
+            </div>
+            <div id="songwritersCheckboxes" class="checkboxes">
+              {% for songwriter in songwriter_list %}
+              <label><input type="checkbox" name="song-writer" value="{{songwriter.0}}">{{songwriter.0}}</label>
+              {% endfor %}
+              <!-- Add more songwriters as needed -->
+            </div>
+          </div>
+
+          <script>
+          function showCheckboxes(id) {
+            var checkboxes = document.getElementById(id + "Checkboxes");
+            checkboxes.style.display = checkboxes.style.display === "block" ? "none" : "block";
+          }
+          function updateSelectedGenres() {
+            var selectedGenres = document.querySelectorAll('#genresCheckboxes input[type="checkbox"]:checked');
+            var selectElement = document.getElementById('selectedGenres');
+            selectElement.innerHTML = '';
+            for (var i = 0; i < selectedGenres.length; i++) {
+              var option = document.createElement('option');
+              option.value = selectedGenres[i].value;
+              option.text = selectedGenres[i].value;
+              selectElement.appendChild(option);
+            }
+          }
+
+          function updateSelectedSongwriters() {
+            var selectedSongwriters = document.querySelectorAll('#songwritersCheckboxes input[type="checkbox"]:checked');
+            var selectElement = document.getElementById('selectedSongwriters');
+            selectElement.innerHTML = '';
+            for (var i = 0; i < selectedSongwriters.length; i++) {
+              var option = document.createElement('option');
+              option.value = selectedSongwriters[i].value;
+              option.text = selectedSongwriters[i].value;
+              selectElement.appendChild(option);
+            }
+          }
+          </script>
           <!--Song Duration-->
           <div>
             <label for="song-duration">Durasi </label>

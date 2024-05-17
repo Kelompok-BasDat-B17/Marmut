@@ -862,7 +862,7 @@ button.delete:hover{
         <li><a href="#">Kelola playlist</a></li>
         <li><a href="#">Cari lagu</a></li>
         <li><a href="#">Langganan paket</a></li>
-        <li><a href="#" class="nav-album-song">Kelola Album</a></li>
+        <li><a href="{% url 'main:album_list' %}" class="nav-album-song">Kelola Album</a></li>
         <li><a href="{% url 'main:royalty_list' %}">Royalti</a></li>
       </ul>
       <button class="logout-btn"><a href="{% url 'main:logout' %}">Logout</a></button>

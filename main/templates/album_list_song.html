@@ -84,6 +84,9 @@
           <form action="{% url 'main:song_detail' song.0 %}" method="get">
               <button type="submit">Lihat Detail Lagu</button>
           </form>
+          <form action="{% url 'main:delete_song' song.0 %}" method="get">
+              <button type="submit">Hapus Lagu</button>
+          </form>
       </tr>
       {% endfor %}
     </tbody>

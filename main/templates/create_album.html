@@ -4,7 +4,7 @@
   <div id="header-album-songwriter">
     <div class="album-page">
       <h2>Create Album</h2>
-      <div class="album-list-form" style="
+      <div class="album-list-form" style="  
         height: 500px;
         width: 50%;
         border-radius: 20px;
@@ -16,11 +16,38 @@
         align-content: center;
 
         "> 
-
-      <div style="display: flex;
-      justify-content: center;
-      align-items: center;">
-        <h3>Create Album</h3>
+      
+      <div style="display: inline;
+        justify-content: center;
+        align-items: center;">
+        <div style="justify-content: center;
+          align-content: center;">
+            <button
+              style="
+              display: block;
+              margin: 0 auto;
+              margin-bottom: 30px;
+              color: white;
+              border-color: rgb(10, 236, 10);
+              border-radius: 10px;
+              padding: 15px 25px;
+              border-width: 1px;
+              border-style: none;
+              font-size: 15px;
+              font-weight: bold;
+              box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+              background: #080808;
+              transition: ease 1s;
+              cursor: pointer
+            "><a href="http://127.0.0.1:8000/album_list/"
+            style=
+            "color: #fff;
+            text-decoration: none;
+            ">
+                Kembali ke daftar album
+            </a>
+            </button>
+        </div>
       </div>
       <!--Form Style-->
       <style>
@@ -61,42 +88,62 @@
           background-color: #0056b3;
         }
       </style>
-
+      <!--Error Style-->
+      <style>
+        .error {
+          color: red;
+        }
+      </style>
         <form action="" method="post">
+          {% csrf_token %}
           <div>
             <label for="album-name">Judul </label>
-            <input type="text" name="album-name" id="album-name" placeholder="Masukkan nama album">
+            <input type="text" name="album-name" id="album-name" placeholder="Masukkan nama album" maxlength="100">
+            <p id="error-message" class="error" style="display:none;">Input tidak boleh lebih dari 100 karakter!</p>
           </div>
+
+          <script>
+            const inputField = document.getElementById('album-name');
+            const errorMessage = document.getElementById('error-message');
+          
+            inputField.addEventListener('input', function() {
+              if (inputField.value.length > 100) {
+                errorMessage.style.display = 'block';
+              } else {
+                errorMessage.style.display = 'none';
+              }
+            });
+          </script>
+
           <div>
             <label for="album-label">Label </label>
-            <select name="album-label" id="album-label">
-              <option value="label1">Label 1</option>
-              <option value="label2">Label 2</option>
-              <!-- Add more options as needed -->
-            </select>
+              <select name="album-label" id="album-label">
+                {% for label in label_list %}
+                  <option value="{{label.0}}">{{label.0}}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div>
+            <button 
+            style="
+              display: block;
+              margin: 0 auto;
+              margin-bottom: 30px;
+              color: white;
+              border-color: rgb(10, 236, 10);
+              border-radius: 10px;
+              padding: 15px 25px;
+              border-width: 1px;
+              border-style: none;
+              font-size: 15px;
+              font-weight: bold;
+              box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+              background: #080808;
+              transition: ease 1s;
+              cursor: pointer"
+            type="submit">Create Album</button>
           </div>
         </form>
-        <div>
-          <button style="
-            display: block;
-            margin: 0 auto;
-            color: white;
-            border-color: rgb(10, 236, 10);
-            border-radius: 10px;
-            padding: 15px 25px;
-            border-width: 1px;
-            border-style: none;
-            font-size: 15px;
-            font-weight: bold;
-            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-            background: #080808;
-            transition: ease 1s;
-            cursor: pointer;
-            
-          ">
-          Submit
-          </button>
-        </div> 
       </div>
     </div>
   </div>

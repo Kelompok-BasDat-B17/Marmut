@@ -19,4 +19,6 @@ urlpatterns = [
     path('homepage/', homepage, name="homepage"),
     path('logout/', logout, name="logout"),
     path('create_album/', create_album, name='create_album'),
+    path('create_song_songwriter/<str:album_name>/', create_song_songwriter, name='create_song_songwriter'),
+    path('create_song_artist/<str:album_name>/', create_song_artist, name='create_song_artist'),
 ]

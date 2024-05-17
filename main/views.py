@@ -164,4 +164,89 @@ def song_detail(request, song_name):
     return render(request, "song_detail.html", {'song_detail': song_detail})
    
 def create_album(request):
-    return render(request, "create_album.html")
+    if request.method == "POST":
+        album_id = str(uuid.uuid4())
+        album_name = request.POST.get("album-name")
+        album_label = request.POST.get("album-label")
+        album_label_id = get_label_uuid_by_name(album_label)
+        jumlah_lagu = 0
+        total_durasi = 0
+        insert_album(album_id, album_name, jumlah_lagu, album_label_id, total_durasi)
+        return redirect('main:album_list')
+    label_list = get_label_list()
+    return render(request, "create_album.html", {'label_list': label_list})
+
+def create_song_songwriter(request, album_name):
+    songwriter_name = get_songwriter_name(request.user.username)
+    artist_list = get_artist_list()
+    genres = [
+    "Pop",
+    "Rock",
+    "Hip-hop/Rap",
+    "Country",
+    "Jazz",
+    "Blues",
+    "Electronic/Dance",
+    "R&B (Rhythm and Blues)",
+    "Reggae",
+    "Folk",
+    "Indie",
+    "Metal",
+    "Punk",
+    "Classical",
+    "Latin",
+    "World",
+    "Funk",
+    "Gospel",
+    "Ambient",
+    "Experimental"
+]
+    if request.method == "POST":
+        song_id = str(uuid.uuid4())
+        album_name = request.POST.get("album-name")
+        song_name = request.POST.get("song-name")
+        song_artist_id = request.POST.get("song-artist")
+        song_writer = request.POST.get("song-writer")
+        song_genre = request.POST.getlist("song-genre")
+        song_duration = request.POST.get("song-duration")
+        add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_genre, song_duration, album_name)
+        return redirect('main:album_list')
+    return render(request, "create_song_songwriter.html", {'album_name': album_name, 'songwriter_name': songwriter_name, 'artist_list': artist_list, 'genres': genres})
+
+def create_song_artist(request, album_name):
+    artist_name = get_artist_name(request.user.username)
+    songwriter_list = get_songwriter_list()
+    genres = [
+    "Pop",
+    "Rock",
+    "Hip-hop/Rap",
+    "Country",
+    "Jazz",
+    "Blues",
+    "Electronic/Dance",
+    "R&B (Rhythm and Blues)",
+    "Reggae",
+    "Folk",
+    "Indie",
+    "Metal",
+    "Punk",
+    "Classical",
+    "Latin",
+    "World",
+    "Funk",
+    "Gospel",
+    "Ambient",
+    "Experimental"
+]
+    if request.method == "POST":
+        song_id = str(uuid.uuid4())
+        album_name = request.POST.get("album-name")
+        song_name = request.POST.get("song-name")
+        song_artist_name = request.POST.get("song-artist")
+        song_artist_id = get_artist_id_by_name(song_artist_name)
+        song_writers = request.POST.getlist("song-writer")
+        song_genres = request.POST.getlist("song-genre")
+        song_duration = request.POST.get("song-duration")
+        add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genres, song_duration, album_name)
+        return redirect('main:album_list')
+    return render(request, "create_song_artist.html", {'album_name': album_name, 'artist_name': artist_name, 'genres': genres, 'songwriter_list': songwriter_list})
