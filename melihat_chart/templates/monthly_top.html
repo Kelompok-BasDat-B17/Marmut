@@ -7,22 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Song Details</title>
+    <title>Chart Details</title>
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        .border{
-            min-height: 500px;
-            width: 850px;
-            border-radius: 20px;
-            border-style: none;
-            background-color: rgba(255, 255, 255, 0.3);
-            position: relative;
-            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-            position: relative;
-            margin-bottom: 50px;
-        }
         .playlist-details{
             color: white; /* Set the text color to white */
             width: 80%;
@@ -127,18 +116,12 @@
         </div>
     </div>
     <div class="playlist-page two">
-        <h2>User Playlist Detail</h2>
-        <div class="border">
+        <h2>Chart Detail</h2>
+        <div class="list-playlist three">
             <div class="playlist-details">
-                <p><strong>Judul:</strong> {{ user_playlist_detail.judul }}</p>
-                <p><strong>Pembuat:</strong> {{ user_playlist_detail.pembuat }}</p>
-                <p><strong>Jumlah Lagu:</strong> {{ user_playlist_detail.jumlah_lagu }}</p>
-                <p><strong>Total Durasi:</strong> {{ user_playlist_detail.total_durasi }}</p>
-                <p><strong>Tanggal Dibuat:</strong> {{ user_playlist_detail.tanggal_dibuat }}</p>
-                <p><strong>Deskripsi:</strong> {{ user_playlist_detail.deskripsi }}</p>
+                <p><strong>Tipe:</strong> Monthly Top 20</p>
             </div>
             <div class = "user-btn">
-                <button>Shuffle Play</button>
                 <button onclick="window.history.back();">Kembali</button>
             </div>
             <div class="episode-list">
@@ -147,19 +130,20 @@
                     <tr>
                         <th>Judul Lagu</th>
                         <th>Oleh</th>
-                        <th>Durasi</th>
+                        <th>Tanggal Rilis</th>
+                        <th>Total Plays</th>
                         <th>Actions</th>
                     </tr>
-                    {% for song in songs %}
+                    {% for song in monthly_top %}
                     <tr>
-                            <td>{{ song.judul }}</td>
-                            <td>{{ song.oleh }}</td>
-                            <td>{{ song.durasi }}</td>
+                        <td>{{ song.judul }}</td>
+                        <td>{{ song.artist }}</td>
+                        <td>{{ song.tanggal_rilis|date:"d/m/Y" }}</td>
+                        <td>{{ song.total_play }}</td>
                         <td>
-                            <div class = "action-btn">
-                                    <button>Lihat</button>
+                            <div class="action-btn">
+                                    <button>Play</button>
                                 </a>
-                                <button onclick="playSong('Song2')">Play</button>
                             </div>
                         </td>
                     </tr>
@@ -169,17 +153,6 @@
         </div>
     </div>
     <script src="{% static 'js/navbar.js' %}"></script>
-    <script>
-        function viewDetails(songTitle) {
-            console.log('Viewing details for:', songTitle);
-            // Implement the functionality to show details about the song
-        }
-        
-        function playSong(songTitle) {
-            console.log('Playing song:', songTitle);
-            // Implement the functionality to play the song
-        }
-    </script>
 </body>
 {% endblock content %}
 </html>

@@ -128,18 +128,50 @@
         <div class="list-playlist three">
             <div class="chart-list">
                 <table>
-                    {% for chart in chart_list %}
                     <tr>
-                        <td>{{ chart.0 }}</td> <!-- Adjusted to access the first element in the tuple -->
+                        <th>Tipe</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>Daily Top 20</td>
                         <td>
                             <div class = "action-btn">
-                                <a href="{% url 'chart_detail' chart_id=chart.id %}">
+                                <a href="daily-top">
                                     <button>Lihat Daftar Lagu</button>
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    {% endfor %}
+                    <tr>
+                        <td>Weekly Top 20</td>
+                        <td>
+                            <div class = "action-btn">
+                                <a href="weekly-top">
+                                    <button>Lihat Daftar Lagu</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Monthly Top 20</td>
+                        <td>
+                            <div class = "action-btn">
+                                <a href="monthly-top">
+                                    <button>Lihat Daftar Lagu</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Yearly Top 20</td>
+                        <td>
+                            <div class = "action-btn">
+                                <a href="yearly-top">
+                                    <button>Lihat Daftar Lagu</button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
                 <div class = "user-btn">
                     <button onclick="window.history.back();">Kembali</button>

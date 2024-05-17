@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Song Details</title>
+    <title>Chart Details</title>
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -134,7 +134,7 @@
                         <th>Total Plays</th>
                         <th>Actions</th>
                     </tr>
-                    {% for song in chart_details %}
+                    {% for song in weekly_top %}
                     <tr>
                         <td>{{ song.judul }}</td>
                         <td>{{ song.artist }}</td>
@@ -142,16 +142,12 @@
                         <td>{{ song.total_play }}</td>
                         <td>
                             <div class="action-btn">
-                                <a href="{% url 'play_song' song_id=song.id %}">
                                     <button>Play</button>
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5">No songs found in this chart.</td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>
