@@ -36,6 +36,31 @@ def check_subscription(email: str):
     return "premium"
   return "nonpremium"
 
+def get_role(email: str):
+  list_role = []
+  query1 = f"SELECT * FROM PODCASTER WHERE email = '{email}'"
+  query2 = f"SELECT * FROM SONGWRITER WHERE email_akun = '{email}'"
+  query3 = f"SELECT * FROM ARTIST WHERE email_akun = '{email}'"
+  is_podcaster = get_data(query1)
+  is_songwriter = get_data(query2)
+  is_artist = get_data(query3) 
+  if (len(is_podcaster) != 0): list_role.append("Podcaster")
+  if (len(is_songwriter) != 0): list_role.append("Songwriter")
+  if (len(is_artist) != 0): list_role.append("Artist")
+  return list_role
+
+def check_user(email: str):
+  query = f"SELECT email FROM LABEL WHERE email = '{email}'"
+  is_pengguna = get_data(query)
+  if len(is_pengguna) != 0:
+    return False
+  else: 
+    return True
+  
+def get_label(email: str):
+  query = f"SELECT * FROM LABEL WHERE email = '{email}'"
+  label = get_data(query)
+  return label
 def get_royalty_list(email: str):  
   id_pemilik_hak_cipta = get_id_pemilik_hak_cipta_label(email)
   if id_pemilik_hak_cipta == []:

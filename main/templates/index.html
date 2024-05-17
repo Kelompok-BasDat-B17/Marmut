@@ -32,7 +32,7 @@
           <ul>
             <li><a href="#" class="nav-dashboard">Dashboard</a></li>
             <li><a href="#">Chart</a></li>
-            <li><a href="#">Kelola playlist</a></li>
+            <li><a href="{% url 'playlist:show_playlist' %}">Kelola playlist</a></li>
             <li><a href="#">Cari lagu</a></li>
             <li><a href="#">Langganan paket</a></li>
           <li><a href="{% url 'main:album_list' %}">Kelola Album & Song</a></li>
@@ -47,42 +47,69 @@
         <div class="dashboard-container">
           <h2>Dashboard</h2>
           <div class="user-information">
-            <div class="row row-name">
-              <h5>Nama</h5>
-              <div class="textfield">
-                <p>{{username}}</p>
+            {% if is_pengguna %}
+              <div class="row row-name">
+                <h5>Nama</h5>
+                <div class="textfield">
+                  <p>{{username}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-email">
-              <h5>Email</h5>
-              <div class="textfield">
-                <p>{{email}}</p>
+              <div class="row row-email">
+                <h5>Email</h5>
+                <div class="textfield">
+                  <p>{{email}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-hometown">
-              <h5>Kota asal</h5>
-              <div class="textfield">
-                <p>{{kota_asal}}</p>
+              <div class="row row-hometown">
+                <h5>Kota asal</h5>
+                <div class="textfield">
+                  <p>{{kota_asal}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-gender">
-              <h5>Gender</h5>
-              <div class="textfield">
-                <p>{{gender}}</p>
+              <div class="row row-gender">
+                <h5>Gender</h5>
+                <div class="textfield">
+                  <p>{{gender}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-birthplace">
-              <h5>Tempat lahir</h5>
-              <div class="textfield">
-                <p>{{tempat_lahir}}</p>
+              <div class="row row-birthplace">
+                <h5>Tempat lahir</h5>
+                <div class="textfield">
+                  <p>{{tempat_lahir}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-birthdate">
-              <h5>Tanggal lahr</h5>
-              <div class="textfield">
-                <p>{{tanggal_lahir}}</p>
+              <div class="row row-birthdate">
+                <h5>Tanggal lahir</h5>
+                <div class="textfield">
+                  <p>{{tanggal_lahir}}</p>
+                </div>
               </div>
-            </div>
+              <div class="row row-role">
+                <h5>Role</h5>
+                <div class="textfield">
+                  <p>{{role}}</p>
+                </div>
+              </div>
+            {% else %}
+              <div class="row row-nama">
+                <h5>Nama</h5>
+                <div class="textfield">
+                  <p>{{nama}}</p>
+                </div>
+              </div>
+              <div class="row row-email">
+                <h5>Email</h5>
+                <div class="textfield">
+                  <p>{{email}}</p>
+                </div>
+              </div>
+              <div class="row row-kontak">
+                <h5>Kontak</h5>
+                <div class="textfield">
+                  <p>{{kontak}}</p>
+                </div>
+              </div>
+            {% endif %}
             </div>
           </div>
         </div>
@@ -105,7 +132,10 @@
     <h2>Playlist</h2>
     <div class="playlist-row">
       <img src="{% static 'img/playlist_bg.png' %}">
-      <button class="btn-playlist">Tampilkan Playlist</button>
+      <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none;">
+        <button class="btn-playlist">Tampilkan Playlist
+          <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none;"></a>
+        </button>
     </div>
   </div>
   <div class="paket-container">
