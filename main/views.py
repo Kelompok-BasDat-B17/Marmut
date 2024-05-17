@@ -245,4 +245,3 @@ def create_song_artist(request, album_id):
         add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genres, song_duration, album_id)
         return redirect('main:album_detail', album_id=album_id)
     return render(request, "create_song_artist.html", {'album_name': album_id, 'artist_name': artist_name, 'genres': genres, 'songwriter_list': songwriter_list})
-
