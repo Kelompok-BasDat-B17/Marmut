@@ -1,0 +1,214 @@
+{% extends 'kelola_album_song.html' %}
+{% block content %}
+
+  <div id="header-album-songwriter">
+    <div class="album-page">
+      <h2>Create Song</h2>
+      <div class="album-song-form" style="
+        height: 700px;
+        width: 50%;
+        border-radius: 20px;
+        border-style: none;
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 50px;
+        justify-content: center;
+        align-content: center;
+        "> 
+
+      <div style="display: flex;
+      justify-content: center;
+      align-items: center;">
+        <h3>Create Lagu</h3>
+      </div>
+      <!--Form Style-->
+      <style>
+        form {
+          padding: 20px;
+          border-radius: 5px;
+          width: 90%;
+          margin: auto;
+        }
+      
+        form div {
+          margin-bottom: 0px;
+        }
+      
+        form label {
+          display: block;
+          margin-bottom: 5px;
+        }
+      
+        form input, form select {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ced4da;
+          margin-bottom: 10px;
+        }
+      
+        form button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      
+        form button:hover {
+          background-color: #0056b3;
+        }
+      </style>
+
+        <form action="" method="post">
+          {% csrf_token %}
+          <div>
+            <label for="album-name">Album</label>
+            <input type="hidden" name="album-name" value="{{ album_name }}">
+            <input type="text" name="album-name" id="album-name" value="{{album_name}}" disabled style="color: #ffff;">
+          </div>
+          <div>
+            <label for="song-name">Judul </label>
+            <input type="text" name="song-name" id="song-name" placeholder="Masukkan nama lagu">
+          </div>
+          <!--Artist Name -->
+          <div>
+            <label for="song-artist">Artist </label>
+            <input type="hidden" name="song-artist" value="{{ artist_name }}">
+            <input type="text" name="song-artist" id="song-artist" value="{{artist_name}}" disabled style="color: #ffff;">
+          </div>
+          <!--MultiSelect Style-->
+          <style>
+            .multiselect {
+              width: 100%;
+            }
+          
+            .selectBox {
+              position: relative;
+            }
+          
+            .selectBox select {
+              width: 100%;
+              font-weight: bold;
+            }
+          
+            .overSelect {
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+            }
+            
+            .checkboxes {
+              display: none;
+              width: 100%;
+              color: #080808;
+              background-color: #f9f9f9;
+              border: 1px #dadada solid;
+              max-height: 100px; /* adjust max height as needed */
+              overflow-y: auto; 
+            }
+          
+            .checkboxes label {
+              display: block;
+            }
+          
+            .checkboxes label:hover {
+              background-color: #1e90ff;
+            }
+          </style>
+          <!-- Genre Dropdown -->
+          <div class="multiselect">
+            <label for="genres">Genres</label>
+            <div class="selectBox" onclick="showCheckboxes('genres')">
+              <select>
+                <option id="genre">Select Genres</option>
+              </select>
+            </div>
+            <div id="genresCheckboxes" class="checkboxes">
+              {% for genre in genres %}
+              <label><input type="checkbox" name="song-genre" value="{{genre}}">{{genre}}</label>
+              {% endfor %}
+              <!-- Add more genres as needed -->
+            </div>
+          </div>
+
+          <!-- Songwriter Dropdown -->
+          <div class="multiselect">
+            <label for="songwriters">Songwriters</label>
+            <div class="selectBox" onclick="showCheckboxes('songwriters')">
+              <select>
+                <option id="songwriters">Select Songwriters</option>
+              </select>
+            </div>
+            <div id="songwritersCheckboxes" class="checkboxes">
+              {% for songwriter in songwriter_list %}
+              <label><input type="checkbox" name="song-writer" value="{{songwriter.0}}">{{songwriter.0}}</label>
+              {% endfor %}
+              <!-- Add more songwriters as needed -->
+            </div>
+          </div>
+
+          <script>
+          function showCheckboxes(id) {
+            var checkboxes = document.getElementById(id + "Checkboxes");
+            checkboxes.style.display = checkboxes.style.display === "block" ? "none" : "block";
+          }
+          function updateSelectedGenres() {
+            var selectedGenres = document.querySelectorAll('#genresCheckboxes input[type="checkbox"]:checked');
+            var selectElement = document.getElementById('selectedGenres');
+            selectElement.innerHTML = '';
+            for (var i = 0; i < selectedGenres.length; i++) {
+              var option = document.createElement('option');
+              option.value = selectedGenres[i].value;
+              option.text = selectedGenres[i].value;
+              selectElement.appendChild(option);
+            }
+          }
+
+          function updateSelectedSongwriters() {
+            var selectedSongwriters = document.querySelectorAll('#songwritersCheckboxes input[type="checkbox"]:checked');
+            var selectElement = document.getElementById('selectedSongwriters');
+            selectElement.innerHTML = '';
+            for (var i = 0; i < selectedSongwriters.length; i++) {
+              var option = document.createElement('option');
+              option.value = selectedSongwriters[i].value;
+              option.text = selectedSongwriters[i].value;
+              selectElement.appendChild(option);
+            }
+          }
+          </script>
+          <!--Song Duration-->
+          <div>
+            <label for="song-duration">Durasi </label>
+            <input type="number" name="song-duration" id="song-duration" placeholder="Masukkan durasi lagu">
+          </div>
+          <div>
+            <button 
+            style="
+              display: block;
+              margin: 0 auto;
+              margin-bottom: 30px;
+              color: white;
+              border-color: rgb(10, 236, 10);
+              border-radius: 10px;
+              padding: 15px 25px;
+              border-width: 1px;
+              border-style: none;
+              font-size: 15px;
+              font-weight: bold;
+              box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+              background: #080808;
+              transition: ease 1s;
+              cursor: pointer"
+            type="submit">Create Song</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="js/main.js"></script>
+{% endblock %}
