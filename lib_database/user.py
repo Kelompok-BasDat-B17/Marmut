@@ -32,8 +32,8 @@ def check_subscription(email: str):
   is_premium = get_subscription(email)
   if is_premium == True:
     expired = get_data(f"SELECT check_subscription('{email}')")
-    print(expired)
-    if expired[0] == True:
+    print(expired[0][0])
+    if expired[0][0] == True:
       delete(f"DELETE FROM PREMIUM WHERE email = '{email}'")
       insert(f"INSERT INTO NON_PREMIUM VALUES ('{email}')")
       return "nonpremium"
@@ -336,7 +336,7 @@ def add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genre
   id_phc_label = get_id_phc_label_by_album(album_name)
   query = f"INSERT INTO ROYALTI VALUES ('{id_phc_label}', '{song_id}', '{0}')"
   insert(query)
-  
+
   # GENRE
 
   for genre in song_genres:
