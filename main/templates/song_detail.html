@@ -1,0 +1,75 @@
+{% extends 'kelola_album.html' %}
+{% block content %}
+<div id="header-album-artist">
+  <div class="album-page">
+    <h2>Detail Lagu {{song_name}}</h2>
+  <div class="list-album one">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;">
+      <table>
+        {% for song in song_detail %}
+        <tr>
+          <td> Judul Lagu </td>
+          <td> : </td>
+          <td> {{song.0}} </td>
+        </tr>
+        <tr>
+          <td> Total Pemutaran </td>
+          <td> : </td>
+          <td> {{song.1}} </td>
+        </tr>
+        <tr>
+          <td> Total Download  </td>
+          <td> : </td>
+          <td> {{song.2}} </td>
+        </tr>
+        <tr>
+          <td> Tanggal Rilis </td>
+          <td> : </td>
+          <td> {{song.3}} </td>
+        </tr>
+        <tr>
+          <td> Tahun </td>
+          <td> : </td>
+          <td> {{song.4}} </td>
+        </tr>
+        <tr>
+          <td> Durasi </td>
+          <td> : </td>
+          <td> {{song.5}} </td>
+        </tr>
+          <td></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div>
+      <a href="http://127.0.0.1:8000/album_list/">
+      <button style="
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        color: white;
+        border-color: rgb(10, 236, 10);
+        border-radius: 10px;
+        padding: 15px 25px;
+        border-width: 1px;
+        border-style: none;
+        font-size: 15px;
+        font-weight: bold;
+        box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+        background: #080808;
+        transition: ease 1s;
+        cursor: pointer
+      ">
+      Kembali
+      </button>
+    </a>
+    </div>
+  </div>
+  </div>
+</div>
+<script type="text/javascript" src="js/main.js"></script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    {% block meta %}
+    <title>Daftar Lagu</title>
+    {% endblock meta %}
+    <!-- Custom styles-path -->
+    <link rel="stylesheet" href="{% static 'css/playlist.css' %}">
+
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   
+</head>
+
+{% block content %}
+<body>
+    <div id="header-playlist">
+      <div class="container">
+        <nav>
+          <h5>Mar<span>mut</span></h5>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Chart</a></li>
+            <li><a href="{% url 'playlist:show_playlist' %}" class="nav-playlist">Kelola playlist</a></li>
+            <li><a href="#">Cari lagu</a></li>
+            <li><a href="#">Langganan paket</a></li>
+          </ul>
+          <button class="logout-btn">Logout</button>
+        </nav>
+      </div>
+    </div>
+    <div class="add-song-container">
+      <form class="input-lagu">
+        <div id="row-title">
+          <h3>Add Song</h3>
+        </div>
+        <div class="input-row song">
+          <div class="add-song-content">
+            <h5>
+              Pilih Lagu
+            </h5>
+            <select id="dropdown" name="lagu">
+              {% for song in list_song %}
+                <option type="{{ song.id_song }}">{{ song.judul }} - {{ song.nama }}</option>
+              {% endfor %} 
+            </select>
+          </div>
+          <div class="row-btn two">
+            <button class="add-btn-two">
+              Tambahkan
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript" src="/static/js/main.js"></script>
+</body>
+{% endblock content %}
+
+</html>

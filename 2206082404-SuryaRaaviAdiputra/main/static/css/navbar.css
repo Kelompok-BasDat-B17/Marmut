@@ -147,7 +147,6 @@ nav ul li a.nav-paket::after{
   display: grid;
   grid-auto-flow: row;
   place-items: center;
-  cursor: pointer;
 }
 
 .chart-row{
@@ -202,7 +201,6 @@ nav ul li a.nav-paket::after{
 .playlist-container, 
 .paket-container{
   margin-bottom: 100px;
-  cursor: pointer;
 }
 
 .playlist-row{
@@ -638,7 +636,6 @@ button.delete:hover{
   border-bottom: 100px;
   position: relative;
   border-bottom: 100px;
-  cursor: pointer;
 }
 
 .paket-card{

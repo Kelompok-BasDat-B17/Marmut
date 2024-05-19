@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'play_song',
     'play_user_playlist',
     'melihat_chart',
+    'playlist
 ]
 
 MIDDLEWARE = [

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,9 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    {% block meta %}
     <title>Home</title>
+    {% endblock meta %}
     <!-- Custom styles-path -->
-    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
     <!-- Font Awesome kit script -->
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
@@ -20,6 +23,7 @@
    
 </head>
 
+{% block content %}
 <body>
     <div id="header">
       <div class="container">
@@ -28,51 +32,82 @@
           <ul>
             <li><a href="#" class="nav-dashboard">Dashboard</a></li>
             <li><a href="#">Chart</a></li>
-            <li><a href="">Kelola playlist</a></li>
+            <li><a href="{% url 'playlist:show_playlist' %}">Kelola playlist</a></li>
             <li><a href="#">Cari lagu</a></li>
             <li><a href="#">Langganan paket</a></li>
           </ul>
-          <button class="logout-btn">Logout</button>
+          <a href="{% url 'main:logout' %}" style="text-decoration: none;">
+            <button class="logout-btn">
+              Logout
+            </button>
+          </a>
         </nav>
         <div class="dashboard-container">
           <h2>Dashboard</h2>
           <div class="user-information">
-            <div class="row row-name">
-              <h5>Nama</h5>
-              <div class="textfield">
-                <p>Surya Raavi Adiputra</p>
+            {% if is_pengguna %}
+              <div class="row row-name">
+                <h5>Nama</h5>
+                <div class="textfield">
+                  <p>{{username}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-email">
-              <h5>Email</h5>
-              <div class="textfield">
-                <p>user123@gmail.com</p>
+              <div class="row row-email">
+                <h5>Email</h5>
+                <div class="textfield">
+                  <p>{{email}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-hometown">
-              <h5>Kota asal</h5>
-              <div class="textfield">
-                <p>Bangkalan</p>
+              <div class="row row-hometown">
+                <h5>Kota asal</h5>
+                <div class="textfield">
+                  <p>{{kota_asal}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-gender">
-              <h5>Gender</h5>
-              <div class="textfield">
-                <p>Laki-laki</p>
+              <div class="row row-gender">
+                <h5>Gender</h5>
+                <div class="textfield">
+                  <p>{{gender}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-birthplace">
-              <h5>Tempat lahir</h5>
-              <div class="textfield">
-                <p>Kudus</p>
+              <div class="row row-birthplace">
+                <h5>Tempat lahir</h5>
+                <div class="textfield">
+                  <p>{{tempat_lahir}}</p>
+                </div>
               </div>
-            </div>
-            <div class="row row-birthdate">
-              <h5>Tanggal lahir</h5>
-              <div class="textfield">
-                <p>2004/08/10</p>
+              <div class="row row-birthdate">
+                <h5>Tanggal lahir</h5>
+                <div class="textfield">
+                  <p>{{tanggal_lahir}}</p>
+                </div>
               </div>
-            </div>
+              <div class="row row-role">
+                <h5>Role</h5>
+                <div class="textfield">
+                  <p>{{role}}</p>
+                </div>
+              </div>
+            {% else %}
+              <div class="row row-nama">
+                <h5>Nama</h5>
+                <div class="textfield">
+                  <p>{{nama}}</p>
+                </div>
+              </div>
+              <div class="row row-email">
+                <h5>Email</h5>
+                <div class="textfield">
+                  <p>{{email}}</p>
+                </div>
+              </div>
+              <div class="row row-kontak">
+                <h5>Kontak</h5>
+                <div class="textfield">
+                  <p>{{kontak}}</p>
+                </div>
+              </div>
+            {% endif %}
             </div>
           </div>
         </div>
@@ -83,7 +118,7 @@
       <h2>Chart</h2>
     </div>
     <div class="chart-row">
-      <img src="img/chart.png">
+      <img src="{% static 'img/chart.png' %}">
       <h5>Nikmati pilihan lagu <br>terpopuler!</h5>
       <button class="btn-chart">
         Lihat Chart
@@ -94,8 +129,11 @@
   <div class="playlist-container">
     <h2>Playlist</h2>
     <div class="playlist-row">
-      <img src="img/playlist_bg.png">
-      <button class="btn-playlist">Tampilkan Playlist</button>
+      <img src="{% static 'img/playlist_bg.png' %}">
+      <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none;">
+        <button class="btn-playlist">Tampilkan Playlist
+          <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none;"></a>
+        </button>
     </div>
   </div>
   <div class="paket-container">
@@ -160,4 +198,5 @@
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 
+{% endblock content %}
 </html>

@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    {% block meta %}
+    <title>Playlist</title>
+    {% endblock meta %}
+    <!-- Custom styles-path -->
+    <link rel="stylesheet" href="{% static 'css/playlist.css' %}">
+
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   
+</head>
+
+{% block content %}
+<body>
+    <div id="header-playlist">
+      <div class="container">
+        <nav>
+          <h5>Mar<span>mut</span></h5>
+          <ul>
+            <li><a href="{% url 'main:homepage' %}">Dashboard</a></li>
+            <li><a href="#">Chart</a></li>
+            <li><a href="{% url 'playlist:show_playlist' %}" class="nav-playlist">Kelola playlist</a></li>
+            <li><a href="#">Cari lagu</a></li>
+            <li><a href="#">Langganan paket</a></li>
+          </ul>
+          <a href="{% url 'main:logout' %}" style="text-decoration: none;">
+            <button class="logout-btn">
+              Logout
+            </button>
+          </a>
+        </nav>
+      </div>
+    </div>
+    <div class="playlist-page">
+      <h2>User Playlist</h2>
+      {% if has_playlist != True %}
+        <div class="list-playlist one">
+          <h5>
+            Anda Belum Memiliki Playlist
+          </h5>
+          <div class="row-btn">
+            <button class="add-btn">
+              Tambah Playlist
+            </button>
+          </div>
+        </div>
+      {% else %}
+        <div class="list-playlist two">
+          <section class="playlist-content playlist">
+            <table>
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Jumlah Lagu</th>
+                  <th>Total Durasi</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for playlist in list_playlist %}
+                  <tr>
+                    <th>{{playlist.judul}}</th>
+                    <th>{{playlist.jumlah_lagu}}</th>
+                    <th>{{playlist.total_durasi}}</th>
+                    <th>
+                      <a href="{% url 'playlist:playlist_detail' playlist.id_playlist %}" style="text-decoration: none;">
+                        <button>
+                          Detail
+                        </button>
+                      </a>
+                      <button>Ubah</button>
+                      <a href="{% url 'playlist:delete_playlist' playlist.id_playlist %}" style="text-decoration: none;">
+                        <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                      </a>
+                    </th>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </section>
+          <div class="row-btn">
+            <a href="{% url 'playlist:add_playlist' %}" style="text-decoration: none; width: 100%; height: 100%; text-align: center; margin-right: 150px;">
+              <button class="add-btn">
+                Tambah Playlist
+              </button>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  <script type="text/javascript" src="/static/js/main.js"></script>
+</body>
+{% endblock content %}
+</html>

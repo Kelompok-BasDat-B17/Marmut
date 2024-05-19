@@ -1,0 +1,152 @@
+{% extends 'kelola_album_song.html' %}
+{% block content %}
+
+  <div id="header-album-songwriter">
+    <div class="album-page">
+      <h2>Create Album</h2>
+      <div class="album-list-form" style="  
+        height: 500px;
+        width: 50%;
+        border-radius: 20px;
+        border-style: none;
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+        margin-bottom: 50px;
+        justify-content: center;
+        align-content: center;
+
+        "> 
+      
+      <div style="display: inline;
+        justify-content: center;
+        align-items: center;">
+        <div style="justify-content: center;
+          align-content: center;">
+            <button
+              style="
+              display: block;
+              margin: 0 auto;
+              margin-bottom: 30px;
+              color: white;
+              border-color: rgb(10, 236, 10);
+              border-radius: 10px;
+              padding: 15px 25px;
+              border-width: 1px;
+              border-style: none;
+              font-size: 15px;
+              font-weight: bold;
+              box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+              background: #080808;
+              transition: ease 1s;
+              cursor: pointer
+            "><a href="http://127.0.0.1:8000/album_list/"
+            style=
+            "color: #fff;
+            text-decoration: none;
+            ">
+                Kembali ke daftar album
+            </a>
+            </button>
+        </div>
+      </div>
+      <!--Form Style-->
+      <style>
+        form {
+          padding: 20px;
+          border-radius: 5px;
+          width: 500px;
+          margin: auto;
+        }
+      
+        form div {
+          margin-bottom: 0px;
+        }
+      
+        form label {
+          display: block;
+          margin-bottom: 5px;
+        }
+      
+        form input, form select {
+          width: 100%;
+          padding: 10px;
+          border-radius: 5px;
+          border: 1px solid #ced4da;
+          margin-bottom: 10px;
+        }
+      
+        form button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      
+        form button:hover {
+          background-color: #0056b3;
+        }
+      </style>
+      <!--Error Style-->
+      <style>
+        .error {
+          color: red;
+        }
+      </style>
+        <form action="" method="post">
+          {% csrf_token %}
+          <div>
+            <label for="album-name">Judul </label>
+            <input type="text" name="album-name" id="album-name" placeholder="Masukkan nama album" maxlength="100">
+            <p id="error-message" class="error" style="display:none;">Input tidak boleh lebih dari 100 karakter!</p>
+          </div>
+
+          <script>
+            const inputField = document.getElementById('album-name');
+            const errorMessage = document.getElementById('error-message');
+          
+            inputField.addEventListener('input', function() {
+              if (inputField.value.length > 100) {
+                errorMessage.style.display = 'block';
+              } else {
+                errorMessage.style.display = 'none';
+              }
+            });
+          </script>
+
+          <div>
+            <label for="album-label">Label </label>
+              <select name="album-label" id="album-label">
+                {% for label in label_list %}
+                  <option value="{{label.0}}">{{label.0}}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div>
+            <button 
+            style="
+              display: block;
+              margin: 0 auto;
+              margin-bottom: 30px;
+              color: white;
+              border-color: rgb(10, 236, 10);
+              border-radius: 10px;
+              padding: 15px 25px;
+              border-width: 1px;
+              border-style: none;
+              font-size: 15px;
+              font-weight: bold;
+              box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+              background: #080808;
+              transition: ease 1s;
+              cursor: pointer"
+            type="submit">Create Album</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="js/main.js"></script>
+{% endblock %}

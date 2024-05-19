@@ -13,6 +13,7 @@ body{
 
 #header{
   width: 100%;
+  height: 100vh;
 }
 
 .container{
@@ -122,8 +123,6 @@ nav ul li a.nav-paket::after{
   grid-row-gap: 50%;
   grid-column-gap: 50px;
   padding: 0px 0px 0px 300px;
-  margin-bottom: 300px;
-  position: relative;
 }
 
 .row{
@@ -142,12 +141,12 @@ nav ul li a.nav-paket::after{
 }
 
 
+
 .chart-container, 
 .playlist-container{
   display: grid;
   grid-auto-flow: row;
   place-items: center;
-  cursor: pointer;
 }
 
 .chart-row{
@@ -202,7 +201,6 @@ nav ul li a.nav-paket::after{
 .playlist-container, 
 .paket-container{
   margin-bottom: 100px;
-  cursor: pointer;
 }
 
 .playlist-row{
@@ -222,6 +220,7 @@ nav ul li a.nav-paket::after{
   place-items: center;
   row-gap: 5px; 
   margin-bottom: 100px;
+  
 }
 
 .list-playlist,
@@ -355,13 +354,10 @@ th button:hover{
 .playlist-content{
   margin-top: 44px;
   overflow: auto;
-  height: 70%;
+  height: 40%;
+  width: 100%;
 }
 
-.playlist-content.two{
-  height: 35%;
-  margin-right: 100px;
-}
 
 
 tbody th{
@@ -413,12 +409,24 @@ thead th{
   background-color: rgb(10, 236, 10);
 }
 
+
+.list-playlist.two section{
+  height: 70%;
+}
+
+
 .list-playlist.three{
   height: 1050px;
 }
 
+.list-playlist.three section{
+  width: 90%;
+  margin-right: 30px;
+}
+
 .playlist-content.two{
   margin-top: 10px;
+  margin-left: 30px;
 }
 
 .playlist-content.two h2{
@@ -432,7 +440,14 @@ button .fa-eye{
 }
 
 .playlist-content.two table{
-  margin-left: 97px;
+  margin-left: 100px;
+  height: 40%;
+  width:95%;
+}
+
+.playlist-content.playlist table{
+  margin-right: 40px;
+  width: 80%;
 }
 
 .fa-circle-minus{
@@ -562,6 +577,7 @@ button.delete:hover{
   justify-content: center;
   margin-bottom: 300px;
   padding: 0px;
+  margin-top: 100px;
 }
 
 
@@ -638,7 +654,6 @@ button.delete:hover{
   border-bottom: 100px;
   position: relative;
   border-bottom: 100px;
-  cursor: pointer;
 }
 
 .paket-card{
@@ -818,3 +833,7 @@ button.delete:hover{
   opacity: 1;
 }
 
+
+.user-btn .back-btn{
+  width: 100%;
+}

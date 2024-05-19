@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marmut B-17</title>
+    <title>Opsi Register</title>
     <!-- Custom styles-path -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!-- Font Awesome kit script -->
     <script src="https://kit.fontawesome.com/a81368914c.js"></script>
@@ -22,26 +22,32 @@
 {% block content %}
 <body>
     <div class="container">
+      <div class="back-register-base">
+        <a href="{% url 'main:show_main' %}">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      </div>
         <div class="base-register-container">
           <h2>
-            Mar<span>mut</span> - B17
+            Daftarkan dirimu di Mar<span>mut</span> !
           </h2>
-            <div class="login">
-              <a class="login-direct" href="user_login">
-                Login
+          <h3>Daftar sebagai: </h3>
+          <div class="option-btn">
+            <div class="pengguna">
+              <a href="register-user">
+                <button class="pgn-btn">
+                  Pengguna
+                </button>
               </a>
-              <button class="btn-1">
-                <i class="fa-solid fa-right-to-bracket"></i>
-              </button>
             </div>
-            <div class="register">
-              <a class="register-direct" href="register-option">
-                Register
-              </a>             
-              <button class="btn-2">
-                <i class="fa-solid fa-right-to-bracket"></i>
-              </button>
+            <div class="label">
+              <a href="register-label">
+                <button class="lbl-btn">
+                  Label
+                </button>
+              </a>
             </div>
+          </div>
         </div>
     </div>
 

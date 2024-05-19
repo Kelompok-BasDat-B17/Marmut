@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    {% block meta %}
+    <title>Daftar Lagu</title>
+    {% endblock meta %}
+    <!-- Custom styles-path -->
+    <link rel="stylesheet" href="{% static 'css/playlist.css' %}">
+
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   
+</head>
+
+{% block content %}
+<body>
+    <div id="header-playlist">
+      <div class="container">
+        <nav>
+          <h5>Mar<span>mut</span></h5>
+          <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Chart</a></li>
+            <li><a href="{% url 'playlist:show_playlist' %}" class="nav-playlist">Kelola playlist</a></li>
+            <li><a href="#">Cari lagu</a></li>
+            <li><a href="#">Langganan paket</a></li>
+          </ul>
+          <a href="{% url 'main:logout' %}" style="text-decoration: none; cursor: pointer;">
+            <button class="logout-btn">
+              Logout
+            </button>
+          </a>
+        </nav>
+      </div>
+    </div>
+    <div class="playlist-page two">
+      <h2>User Playlist Detail</h2>
+      <div class="list-playlist three">
+        <div class="playlist-description">
+          <h3>Judul</h3>
+          <h5>{{user_detail.judul}}</h5>
+          <h3>Pembuat</h3>
+          <h5>{{pembuat}}</h5>
+          <h3>Jumlah Lagu</h3>
+          <h5>{{user_detail.jumlah_lagu}}</h5>
+          <h3>Total Durasi</h3>
+          <h5>{{user_detail.total_durasi}} menit</h5>
+          <h3>Tanggal Dibuat</h3>
+          <h5>{{user_detail.tanggal_dibuat}}</h5>
+          <h3>Deskripsi</h3>
+          <h5>{{user_detail.deskripsi}}</h5>
+        </div>
+        <div class="user-btn">
+          <button>Shuffle Play <i class="fa-solid fa-shuffle"></i></button>
+          <button class="back-btn">
+              <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none; color: white;">
+              Kembali
+            </button>
+          </a>
+        </div>
+        <div id="daftar-lagu">
+          <h2>Daftar Lagu</h2>
+        </div>
+        <section class="playlist-content two">
+          <table>
+            <thead>
+              <tr>
+                <th>Judul Lagu</th>
+                <th>Oleh</th>
+                <th>Durasi</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for song in songs %}
+                <tr>
+                  <th>{{song.judul}}</th>
+                  <th>{{song.nama}}</th>
+                  <th>{{song.durasi}}</th>
+                  <th class="btn-action">
+                    <button><i class="fa-solid fa-eye"></i></button>
+                    <button><i class="fa-solid fa-play"></i></button>
+                    <a href="{% url 'playlist:delete_song' user_detail.id_playlist song.id_lagu %}" style="text-decoration: none;">
+                      <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                    </a>
+                  </th>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </section>
+        <div class="row-btn">
+          <a href="{% url 'playlist:add_song' user_detail.id_playlist %}" style="text-decoration: none; width: 100%; height: 100%; text-align: center; margin-right: 150px;">
+            <button class="add-btn">
+              Tambah Lagu
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  <script type="text/javascript" src="/static/js/main.js"></script>
+</body>
+{% endblock content %}
+
+</html>

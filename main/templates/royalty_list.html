@@ -1,4 +1,29 @@
-*{
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta htto-equiv="X-UA-COmpatible" content="IE=edge">
+    <title>Home</title>
+    <!-- Custom styles-path -->
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <!-- Font Awesome kit script -->
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
+    <!-- Google Fonts Open Sans-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   
+</head>
+
+<!-- Styling -->
+<style>
+  *{
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
@@ -13,6 +38,7 @@ body{
 
 #header{
   width: 100%;
+  height: 100vh;
 }
 
 .container{
@@ -79,8 +105,8 @@ nav ul li a::after{
 nav ul li a:hover::after{
   width: 100%; 
 }
-
-nav ul li a.nav-playlist::after,
+nav ul li a.nav-royalty-list::after,
+nav ul li a.nav-album-song::after,
 nav ul li a.nav-dashboard::after,
 nav ul li a.nav-paket::after{
   width: 100%
@@ -90,12 +116,16 @@ nav ul li a.nav-paket::after{
   margin: 55px 47%;
 }
 
-.playlist-page h2{
+.album-page h2{
+  margin: 50px 0px 20px 0px;
+}
+
+.royalty-list-page h2{
   margin: 50px 0px 20px 0px;
 }
 
 .chart-container h2,
-.playlist-container h2,
+.album-container h2,
 .paket-row{
   margin: 10px 0px 35px 67px;
 }
@@ -122,8 +152,6 @@ nav ul li a.nav-paket::after{
   grid-row-gap: 50%;
   grid-column-gap: 50px;
   padding: 0px 0px 0px 300px;
-  margin-bottom: 300px;
-  position: relative;
 }
 
 .row{
@@ -142,12 +170,12 @@ nav ul li a.nav-paket::after{
 }
 
 
+
 .chart-container, 
-.playlist-container{
+.album-container{
   display: grid;
   grid-auto-flow: row;
   place-items: center;
-  cursor: pointer;
 }
 
 .chart-row{
@@ -171,7 +199,7 @@ nav ul li a.nav-paket::after{
 }
 
 .chart-row button, 
-.playlist-row button{
+.album-row button{
   font-size: 1rem;
   width: 100%;
   height: 100%;
@@ -179,7 +207,7 @@ nav ul li a.nav-paket::after{
   transition: ease 1s;
   border-radius: 15px;
   opacity: 0;
-  color: #080808;
+  color: #fff;
   font-size: 24px;
   font-weight: bold;
   border-style: none;
@@ -187,7 +215,7 @@ nav ul li a.nav-paket::after{
 
 
 .chart-row button:hover,
-.playlist-row button:hover{
+.album-row button:hover{
   opacity: 0.9;
 }
 
@@ -199,42 +227,47 @@ nav ul li a.nav-paket::after{
   font-size: 13px;
 }
 
-.playlist-container, 
+.album-container, 
 .paket-container{
   margin-bottom: 100px;
-  cursor: pointer;
 }
 
-.playlist-row{
+.album-row{
   position: relative;
   display: flex;
   margin: 0px 0px 100px 67px;
 }
 
-.playlist-row img{
+.album-row img{
   border-radius: 20px;
   width: 100%;
   box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
 }
 
-.playlist-page{
+.album-page{
   display: grid;
   place-items: center;
   row-gap: 5px; 
   margin-bottom: 100px;
 }
 
-.list-playlist,
+.royalty-list-page{
+  display: grid;
+  place-items: center;
+  row-gap: 5px; 
+  margin-bottom: 100px;
+}
+
+.list-album,
 .riwayat-table{
   height: 600px;
-  width: 700px;
+  width: 40%;
   border-radius: 20px;
   border-style: none;
   background-color: rgba(255, 255, 255, 0.3);
-  position: relative;
   box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
-  position: relative;
   margin-bottom: 50px;
+  position: relative;
 }
 
 .riwayat-table{
@@ -243,7 +276,7 @@ nav ul li a.nav-paket::after{
 }
 
 
-.list-playlist.one h5{
+.list-album.one h5{
   font-size: 1rem;
   color: rgb(10, 236, 10);
   font-weight: lighter;
@@ -295,16 +328,22 @@ nav ul li a.nav-paket::after{
 }
 
 .title h5{
-  color: black;
+  color: #fff;
   font-weight: bold;
   font-size: 14px;
 }
 
-.playlist-page{
+.royalty-list-page{
   margin-bottom: 100px;
 }
 
-.input-playlist{
+.album-page{
+  margin-bottom: 100px;
+}
+
+
+
+.input-album{
   margin-bottom: 100px;
 }
 
@@ -314,11 +353,11 @@ th, td{
 
 
 thead th{
-  color: #080808;
+  color: #fff;
 }
 
 tbody th{
-  color: #080808;
+  color: #ffffff;
   font-weight: lighter;
 }
 
@@ -331,7 +370,7 @@ tbody tr{
 }
 
 table{
-  margin: 20px 0px 0px 61px;
+  margin: 20px 0px 20px 0px;
 }
 
 th button{
@@ -352,15 +391,14 @@ th button:hover{
 }
 
 
-.playlist-content{
+.album-content{
   margin-top: 44px;
   overflow: auto;
   height: 70%;
 }
 
-.playlist-content.two{
+.album-content.two{
   height: 35%;
-  margin-right: 100px;
 }
 
 
@@ -372,20 +410,20 @@ thead th{
   border-bottom: 2px solid #ffffff33;
 }
 
-.playlist-description{
+.album-description{
   display: grid;
   grid-template-columns: 30% 70%;
   width: 80%;
   margin: 30px 0px 0px 50px;
 }
 
-.playlist-description h3{
+.album-description h3{
   font-size: 1rem;
   margin-bottom: 10px;
 }
 
-.playlist-description h3,
-.playlist-description h5{
+.album-description h3,
+.album-description h5{
   color: #080808;
 }
 
@@ -413,15 +451,15 @@ thead th{
   background-color: rgb(10, 236, 10);
 }
 
-.list-playlist.three{
+.list-album.three{
   height: 1050px;
 }
 
-.playlist-content.two{
+.album-content.two{
   margin-top: 10px;
 }
 
-.playlist-content.two h2{
+.album-content.two h2{
   text-align: center;
   color: #080808;
 }
@@ -431,7 +469,7 @@ button .fa-eye{
   margin-left: 10px;
 }
 
-.playlist-content.two table{
+.album-content.two table{
   margin-left: 97px;
 }
 
@@ -451,7 +489,7 @@ button.delete:hover{
   color: #080808;
 }
 
-.input-playlist,
+.input-album,
 .input-lagu{
   background: rgba(8, 8, 8, 0.3);
   padding: 100px;
@@ -462,7 +500,7 @@ button.delete:hover{
   box-shadow: 2px 2px 15px 2px #00000080;
 }
 
-.input-playlist{
+.input-album{
   margin-bottom: 100px;
 }
 
@@ -472,7 +510,7 @@ button.delete:hover{
   padding-top: 50px;
 }
 
-.input-playlist #row-title,
+.input-album #row-title,
 .input-lagu #row-title{
   text-align: center;
 }
@@ -638,7 +676,6 @@ button.delete:hover{
   border-bottom: 100px;
   position: relative;
   border-bottom: 100px;
-  cursor: pointer;
 }
 
 .paket-card{
@@ -743,7 +780,7 @@ button.delete:hover{
   display: grid;
   grid-template-columns: 50% 50%;
   bottom: -100px;
-  left: 30%;
+  left: 450px;
   align-items: center;
 }
 
@@ -780,7 +817,6 @@ button.delete:hover{
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr;
-  padding-left: 5%;
 }
 
 .other-row div{
@@ -818,3 +854,83 @@ button.delete:hover{
   opacity: 1;
 }
 
+
+</style>
+
+{% block content %}
+<body>
+  <div id="header-album-artist">
+    <div class="container">
+      <nav>
+        <div>
+          <h5>Mar<span>mut</span></h5>
+          <h1>{{name}}</h1>
+        </div>
+        <ul>
+          <li><a href="{% url 'main:index' %}">Dashboard</a></li>
+          <li><a href="#">Chart</a></li>
+          <li><a href="#">Kelola playlist</a></li>
+          <li><a href="#">Cari lagu</a></li>
+          <li><a href="#">Langganan paket</a></li>
+        </ul>
+        
+        <button class="logout-btn"><a href="{% url 'main:logout' %}">Logout</a></button>
+      </nav>
+    </div>
+
+    <div class="royalty-list-page">
+      <h2>List Royalti</h2>
+      {% if not royalty_list %}
+      <div class="list-album one">
+        <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90%;
+        ">
+          <h1>Anda belum memiliki royalti</h1>
+        </div>
+      </div>
+      {% else %}       
+      <!-- List Royalti-->
+      <div
+      style="overflow-y: auto;
+      display: flex; 
+      justify-content: center;
+      height: 800px;
+      width: 70%;
+      border-radius: 20px;  
+      border-style: none;
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+      ">
+      <table>
+      <thead>
+        <tr>
+          <th><h3>Judul Lagu</h3></th>
+          <th><h3>Judul Album</h3></th>
+          <th><h3>Total Play</h3></th>
+          <th><h3>Total Download</h3></th>
+          <th><h3>Total Royalti Didapat</h3></th>
+        </tr>
+      </thead>
+      <div>
+      <tbody>
+        {% for song in royalty_list %}
+        <tr>
+          <th>{{song.0}}</th>
+          <th>{{song.1}}</th>
+          <th>{{song.2}}</th>
+          <th>{{song.3}}</th>
+          <th>{{song.4}}</th>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+      </div>  
+      {% endif %}
+  </div>
+
+</body>
+<script type="text/javascript" src="js/main.js"></script>
+</html>
+{% endblock content %}
