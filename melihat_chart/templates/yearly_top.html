@@ -142,8 +142,9 @@
                         <td>{{ song.total_play }}</td>
                         <td>
                             <div class="action-btn">
-                                    <button>Play</button>
-                                </a>
+                                <a href="{% url 'play_song:play_song' song.id %}">
+                                    <button>Lihat</button>
+                                </a>     
                             </div>
                         </td>
                     </tr>

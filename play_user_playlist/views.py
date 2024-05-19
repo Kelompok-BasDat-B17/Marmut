@@ -17,7 +17,8 @@ def play_user_playlist(request, user_playlist_id):
         user_playlist_detail = cursor.fetchall()
 
         cursor.execute("""
-            SELECT K.judul AS "Judul Lagu",
+            SELECT S.id_konten AS "Song ID",
+                K.judul AS "Judul Lagu",
                 AKUN.nama AS "Oleh",
                 K.durasi AS "Durasi"
             FROM USER_PLAYLIST UP
@@ -31,9 +32,10 @@ def play_user_playlist(request, user_playlist_id):
         songs = cursor.fetchall()
 
     song_data = [{
-        'judul': song[0],
-        'oleh': song[1],
-        'durasi': song[2],
+        'id': song[0],
+        'judul': song[1],
+        'oleh': song[2],
+        'durasi': song[3],
     } for song in songs]
 
     if not user_playlist_detail:

@@ -99,6 +99,7 @@
         }
 
         .action-btn button {
+            margin: 10px;
             padding: 10px 10px;
             border: none;
             border-radius: 5px;
@@ -154,11 +155,12 @@
                     <tr>
                             <td>{{ song.judul }}</td>
                             <td>{{ song.oleh }}</td>
-                            <td>{{ song.durasi }}</td>
+                            <td>{{ song.durasi }} menit</td>
                         <td>
                             <div class = "action-btn">
+                                <a href="{% url 'play_song:play_song' song.id %}">
                                     <button>Lihat</button>
-                                </a>
+                                </a>     
                                 <button onclick="playSong('Song2')">Play</button>
                             </div>
                         </td>

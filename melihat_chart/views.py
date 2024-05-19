@@ -24,7 +24,8 @@ def melihat_chart (request):
 def daily_top(request):
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT K.judul AS "Judul",
+            SELECT S.id_konten AS "Song ID",
+                K.judul AS "Judul",
                 AK.nama AS "Artist",
                 K.tanggal_rilis AS "Tanggal Rilis",
                 S.total_play AS "Total Play"
@@ -33,8 +34,10 @@ def daily_top(request):
             JOIN ARTIST AR ON S.id_artist = AR.id
             JOIN AKUN AK ON AR.email_akun = AK.email
             JOIN PLAYLIST_SONG PS ON PS.id_song = S.id_konten
+            JOIN CHART CH ON CH.id_playlist = PS.id_playlist 
             WHERE PS.id_playlist = '001e4567-e89b-12d3-a456-426614174000'
             ORDER BY S.total_play DESC
+            LIMIT 20;
         """)  # Convert UUID to string if necessary
         daily_top = cursor.fetchall()
 
@@ -45,7 +48,7 @@ def daily_top(request):
 
     context = {
         'daily_top': [
-            {'judul': song[0], 'artist': song[1], 'tanggal_rilis': song[2], 'total_play': song[3]}
+            {'id': song[0], 'judul': song[1], 'artist': song[2], 'tanggal_rilis': song[3], 'total_play': song[4]}
             for song in daily_top
         ],
     }
@@ -55,7 +58,8 @@ def daily_top(request):
 def weekly_top(request):
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT K.judul AS "Judul",
+            SELECT S.id_konten AS "Song ID",
+                K.judul AS "Judul",
                 AK.nama AS "Artist",
                 K.tanggal_rilis AS "Tanggal Rilis",
                 S.total_play AS "Total Play"
@@ -64,8 +68,10 @@ def weekly_top(request):
             JOIN ARTIST AR ON S.id_artist = AR.id
             JOIN AKUN AK ON AR.email_akun = AK.email
             JOIN PLAYLIST_SONG PS ON PS.id_song = S.id_konten
+            JOIN CHART CH ON CH.id_playlist = PS.id_playlist 
             WHERE PS.id_playlist = '002e4567-e89b-12d3-a456-426614174001'
             ORDER BY S.total_play DESC
+            LIMIT 20;
         """)  # Convert UUID to string if necessary
         weekly_top = cursor.fetchall()
 
@@ -76,7 +82,7 @@ def weekly_top(request):
 
     context = {
         'weekly_top': [
-            {'judul': song[0], 'artist': song[1], 'tanggal_rilis': song[2], 'total_play': song[3]}
+            {'id': song[0], 'judul': song[1], 'artist': song[2], 'tanggal_rilis': song[3], 'total_play': song[4]}
             for song in weekly_top
         ],
     }
@@ -86,7 +92,8 @@ def weekly_top(request):
 def monthly_top(request):
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT K.judul AS "Judul",
+            SELECT S.id_konten AS "Song ID",
+                K.judul AS "Judul",
                 AK.nama AS "Artist",
                 K.tanggal_rilis AS "Tanggal Rilis",
                 S.total_play AS "Total Play"
@@ -95,8 +102,10 @@ def monthly_top(request):
             JOIN ARTIST AR ON S.id_artist = AR.id
             JOIN AKUN AK ON AR.email_akun = AK.email
             JOIN PLAYLIST_SONG PS ON PS.id_song = S.id_konten
+            JOIN CHART CH ON CH.id_playlist = PS.id_playlist 
             WHERE PS.id_playlist = '003e4567-e89b-12d3-a456-426614174002'
             ORDER BY S.total_play DESC
+            LIMIT 20;
         """)  # Convert UUID to string if necessary
         monthly_top = cursor.fetchall()
 
@@ -107,7 +116,7 @@ def monthly_top(request):
 
     context = {
         'monthly_top': [
-            {'judul': song[0], 'artist': song[1], 'tanggal_rilis': song[2], 'total_play': song[3]}
+            {'id': song[0], 'judul': song[1], 'artist': song[2], 'tanggal_rilis': song[3], 'total_play': song[4]}
             for song in monthly_top
         ],
     }
@@ -117,7 +126,8 @@ def monthly_top(request):
 def yearly_top(request):
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT K.judul AS "Judul",
+            SELECT S.id_konten AS "Song ID",
+                K.judul AS "Judul",
                 AK.nama AS "Artist",
                 K.tanggal_rilis AS "Tanggal Rilis",
                 S.total_play AS "Total Play"
@@ -126,8 +136,10 @@ def yearly_top(request):
             JOIN ARTIST AR ON S.id_artist = AR.id
             JOIN AKUN AK ON AR.email_akun = AK.email
             JOIN PLAYLIST_SONG PS ON PS.id_song = S.id_konten
+            JOIN CHART CH ON CH.id_playlist = PS.id_playlist 
             WHERE PS.id_playlist = '004e4567-e89b-12d3-a456-426614174003'
             ORDER BY S.total_play DESC
+            LIMIT 20;
         """)  # Convert UUID to string if necessary
         yearly_top = cursor.fetchall()
 
@@ -138,7 +150,7 @@ def yearly_top(request):
 
     context = {
         'yearly_top': [
-            {'judul': song[0], 'artist': song[1], 'tanggal_rilis': song[2], 'total_play': song[3]}
+            {'id': song[0], 'judul': song[1], 'artist': song[2], 'tanggal_rilis': song[3], 'total_play': song[4]}
             for song in yearly_top
         ],
     }
