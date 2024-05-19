@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('playlist/', include('playlist.urls')),
     path('', include('play_song.urls')),
+    path('', include('melihat_chart.urls')),
 ]

@@ -31,7 +31,7 @@
           <h5>Mar<span>mut</span></h5>
           <ul>
             <li><a href="#" class="nav-dashboard">Dashboard</a></li>
-            <li><a href="#">Chart</a></li>
+            <li><a href="{% url 'melihat-chart:melihat_chart' %}">Chart</a></li>
             <li><a href="{% url 'playlist:show_playlist' %}">Kelola playlist</a></li>
             <li><a href="#">Cari lagu</a></li>
             <li><a href="#">Langganan paket</a></li>
@@ -120,10 +120,10 @@
     <div class="chart-row">
       <img src="{% static 'img/chart.png' %}">
       <h5>Nikmati pilihan lagu <br>terpopuler!</h5>
-      <button class="btn-chart">
+      <a href="{% url 'melihat-chart:melihat_chart' %}" class="btn-chart">
         Lihat Chart
         <i class="fa-solid fa-eye"></i>
-      </button>
+      </a>
     </div>
   </div>
   <div class="playlist-container">
