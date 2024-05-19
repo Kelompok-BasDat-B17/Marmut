@@ -2,7 +2,7 @@ from django.urls import path
 from main.views import *
 from melihat_chart.views import melihat_chart, daily_top,weekly_top, monthly_top, yearly_top
 from play_podcast.views import play_podcast
-from play_song.views import play_song
+from play_song.views import add_song_to_playlist, play_song
 from play_user_playlist.views import play_user_playlist
 
 app_name = 'main'
@@ -33,4 +33,5 @@ urlpatterns = [
     path('create_album/', create_album, name='create_album'),
     path('create_song_songwriter/<str:album_id>/', create_song_songwriter, name='create_song_songwriter'),
     path('create_song_artist/<str:album_id>/', create_song_artist, name='create_song_artist'),
+    path('play-song/<uuid:song_id>/add-song-to-playlist/', add_song_to_playlist, name='add_song_to_playlist'),
 ]

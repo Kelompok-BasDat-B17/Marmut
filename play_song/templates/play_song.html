@@ -89,7 +89,7 @@
     <div id="header-playlist">
         <div class="container">
             <nav>
-              <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+              <button class="back-btn" onclick="window.history.back();"><i class="fas fa-arrow-left"></i> Back</button>
             </nav>
         </div>
     </div>
@@ -115,7 +115,7 @@
             </div>
             <div class="user-btn">
                 <button onclick="playSong()">Play</button>
-                <a href="tambah_lagu_playlist.html">
+                <a href="add-song-to-playlist">
                     <button>Add to Playlist</button>
                 </a>
                 {% if show_download_button %}
