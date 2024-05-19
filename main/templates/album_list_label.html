@@ -53,9 +53,9 @@
           <tbody>
             {% for album in album_list %}
           <tr>
-            <td>{{album.0}}</td>
             <td>{{album.1}}</td>
             <td>{{album.2}}</td>
+            <td>{{album.3}}</td>
             <td>
             <form action="{% url 'main:album_detail' album.0 %}" method="get">
                 <button type="submit">Lihat Daftar Lagu</button>

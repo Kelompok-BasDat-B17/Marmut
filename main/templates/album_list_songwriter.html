@@ -54,10 +54,10 @@
           <tbody>
             {% for album in album_list %}
           <tr>
-            <td>{{album.0}}</td>
             <td>{{album.1}}</td>
             <td>{{album.2}}</td>
             <td>{{album.3}}</td>
+            <td>{{album.4}}</td>
             <td>
               <div style="display: inline-block;">
               <form action="{% url 'main:album_detail' album.0 %}" method="get">

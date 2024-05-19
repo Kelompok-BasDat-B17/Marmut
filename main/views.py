@@ -49,6 +49,7 @@ def register_option(request):
 
 def register_user(request):
     return render(request, "register_pengguna.html")
+
 @csrf_exempt
 def register_label(request):
     if request.method == "POST":
@@ -79,24 +80,6 @@ def royalty_list(request):
     name = get_user_name(email)
     return render(request, "royalty_list.html", {'royalty_list': royalty_list, 'name': name})
 
-def album_list(request):
-    email = request.user.email
-    index = request.user.username
-    role = get_user_type(email)
-    if role == "Label":
-        name = get_label_name(email)
-    else :
-        name = get_user_name(email)
-    if role == "Label":
-        album_list = get_album_list_label(index)
-        return render(request, "album_list_label.html", {'album_list': album_list, 'name': name})
-    if role == "Artist":
-        album_list = get_album_list_artist(index)
-        return render(request, "album_list_artist.html", {'album_list': album_list, 'name': name})
-    if role == "Songwriter":
-        album_list = get_album_list_songwriter(index)
-        return render(request, "album_list_songwriter.html", {'album_list': album_list, 'name': name})
-    
 @csrf_exempt
 def homepage(request):
     if check_user(request.COOKIES.get("email")) == False:
@@ -145,30 +128,43 @@ def logout(request):
     response.delete_cookie('subscription')
     return response
 
-def album_detail(request, album_name):
-    song_list = get_song_album(album_name)
-    if "'" in album_name:
-        album_name = album_name.replace("'", "''")
+def album_list(request):
+    email = request.user.email
+    role = get_user_type(email)
+    if role == "Label":
+        name = get_label_name(email)
+    else :  
+        name = get_user_name(email)
+        
+    if role == "Label":
+        album_list = get_album_list_label(email)
+        return render(request, "album_list_label.html", {'album_list': album_list, 'name': name})
+    
+    if role == "Artist" or role == "Songwriter":
+        album_list = get_album_list_non_label(email)
+        if role == "Artist":
+            return render(request, "album_list_artist.html", {'album_list': album_list, 'name': name})
+        else:
+            return render(request, "album_list_songwriter.html", {'album_list': album_list, 'name': name})
+    
+def album_detail(request, album_id):
+    song_list = get_song_list(album_id)
+    album_name = get_album_name(album_id)
     return render(request, "album_list_song.html", {'song_list': song_list, 'album_name': album_name})
 
-def delete_album(request, album_name):
-    if "'" in album_name:
-        album_name = album_name.replace("'", "''")
-        
-    delete_album_by_name(album_name)
+def delete_album(request, album_id):
+    delete_album_by_id(album_id)
     return redirect('main:album_list')
 
-def delete_song(request, song_name):
-    if "'" in song_name:
-        song_name = song_name.replace("'", "''")
-    delete_song_by_name(song_name)
-    return redirect('main:album_list')
+def delete_song(request, song_id):
+    album_id = get_album_id_by_song_id(song_id)
+    delete_song_by_id(song_id)
+    return redirect('main:album_detail', album_id=album_id)
 
-def song_detail(request, song_name):
-    if "'" in song_name:
-        song_name = song_name.replace("'", "''")
-    song_detail = get_song_detail(song_name)
-    return render(request, "song_detail.html", {'song_detail': song_detail})
+def song_detail(request, song_id):
+    song_detail = get_song_detail(song_id)
+    album_id = get_album_id_by_song_id(song_id)
+    return render(request, "song_detail.html", {'song_detail': song_detail, 'album_id': album_id})
    
 def create_album(request):
     if request.method == "POST":
@@ -183,9 +179,10 @@ def create_album(request):
     label_list = get_label_list()
     return render(request, "create_album.html", {'label_list': label_list})
 
-def create_song_songwriter(request, album_name):
+def create_song_songwriter(request, album_id):
     songwriter_name = get_songwriter_name(request.user.username)
     artist_list = get_artist_list()
+    album_name = get_album_name(album_id)
     genres = [
     "Pop",
     "Rock",
@@ -210,17 +207,16 @@ def create_song_songwriter(request, album_name):
 ]
     if request.method == "POST":
         song_id = str(uuid.uuid4())
-        album_name = request.POST.get("album-name")
         song_name = request.POST.get("song-name")
         song_artist_id = request.POST.get("song-artist")
         song_writer = request.POST.get("song-writer")
         song_genre = request.POST.getlist("song-genre")
         song_duration = request.POST.get("song-duration")
-        add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_genre, song_duration, album_name)
-        return redirect('main:album_list')
+        add_song_songwriter(song_id, song_name, song_artist_id, song_writer, song_genre, song_duration, album_id)
+        return redirect('main:album_detail', album_id=album_id)
     return render(request, "create_song_songwriter.html", {'album_name': album_name, 'songwriter_name': songwriter_name, 'artist_list': artist_list, 'genres': genres})
 
-def create_song_artist(request, album_name):
+def create_song_artist(request, album_id):
     artist_name = get_artist_name(request.user.username)
     songwriter_list = get_songwriter_list()
     genres = [
@@ -247,13 +243,12 @@ def create_song_artist(request, album_name):
 ]
     if request.method == "POST":
         song_id = str(uuid.uuid4())
-        album_name = request.POST.get("album-name")
         song_name = request.POST.get("song-name")
         song_artist_name = request.POST.get("song-artist")
         song_artist_id = get_artist_id_by_name(song_artist_name)
         song_writers = request.POST.getlist("song-writer")
         song_genres = request.POST.getlist("song-genre")
         song_duration = request.POST.get("song-duration")
-        add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genres, song_duration, album_name)
-        return redirect('main:album_list')
-    return render(request, "create_song_artist.html", {'album_name': album_name, 'artist_name': artist_name, 'genres': genres, 'songwriter_list': songwriter_list})
+        add_song_artist(song_id, song_name, song_artist_id, song_writers, song_genres, song_duration, album_id)
+        return redirect('main:album_detail', album_id=album_id)
+    return render(request, "create_song_artist.html", {'album_name': album_id, 'artist_name': artist_name, 'genres': genres, 'songwriter_list': songwriter_list})
