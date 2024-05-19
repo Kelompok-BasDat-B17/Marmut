@@ -12,6 +12,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
+        .border{
+            min-height: 500px;
+            width: 1000px;
+            border-radius: 20px;
+            border-style: none;
+            background-color: rgba(255, 255, 255, 0.3);
+            position: relative;
+            box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
+            position: relative;
+            margin-bottom: 50px;
+        }
         .playlist-details{
             color: white; /* Set the text color to white */
             width: 80%;
@@ -111,13 +122,13 @@
     <div id="header-playlist">
         <div class="container">
             <nav>
-              <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+                <button class="back-btn" onclick="window.history.back();"><i class="fas fa-arrow-left"></i> Back</button>
             </nav>
         </div>
     </div>
     <div class="playlist-page two">
         <h2>Chart Detail</h2>
-        <div class="list-playlist three">
+        <div class="border">
             <div class="playlist-details">
                 <p><strong>Tipe:</strong> Daily Top 20</p>
             </div>
@@ -142,8 +153,9 @@
                         <td>{{ song.total_play }}</td>
                         <td>
                             <div class="action-btn">
-                                    <button>Play</button>
-                                </a>
+                                <a href="{% url 'play_song:play_song' song.id %}">
+                                    <button>Lihat</button>
+                                </a>     
                             </div>
                         </td>
                     </tr>

@@ -111,7 +111,7 @@
     <div id="header-playlist">
         <div class="container">
             <nav>
-              <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+                <button class="back-btn" onclick="window.history.back();"><i class="fas fa-arrow-left"></i> Back</button>
             </nav>
         </div>
     </div>
@@ -142,8 +142,9 @@
                         <td>{{ song.total_play }}</td>
                         <td>
                             <div class="action-btn">
-                                    <button>Play</button>
-                                </a>
+                                <a href="{% url 'play_song:play_song' song.id %}">
+                                    <button>Lihat</button>
+                                </a>     
                             </div>
                         </td>
                     </tr>

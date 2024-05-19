@@ -1,7 +1,12 @@
 from django.shortcuts import render
+from django.db import DatabaseError, InternalError, connection
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
 from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 def play_song(request, song_id):
     with connection.cursor() as cursor:
@@ -52,6 +57,76 @@ def play_song(request, song_id):
     }
 
     return render(request, 'play_song.html', context)
+
+def add_song_to_playlist(request, song_id):
+    success_message = None
+    error_message = None
+    playlist_name = None
+    song_title = None
+    artist_name = None
+    playlists = None
+    other_playlist_id = None
+
+    email_pengguna = request.COOKIES.get('email')
+
+    with connection.cursor() as cursor:
+        cursor.execute("""
+                SELECT k.judul, a.nama AS artist
+                FROM song s
+                JOIN konten k ON s.id_konten = k.id
+                JOIN artist ar ON s.id_artist = ar.id
+                JOIN akun a ON ar.email_akun = a.email
+                WHERE s.id_konten = %s;
+            """, [song_id])
+        song_data = cursor.fetchone()
+        
+        if song_data:
+            song_title, artist_name = song_data
+
+        if request.method == 'POST':
+            other_playlist_id = request.POST.get('other_playlist_id')
+            
+            cursor.execute("SELECT judul FROM user_playlist WHERE id_playlist = %s", [other_playlist_id])
+            playlist_name_query = cursor.fetchone()
+            if playlist_name_query:
+                playlist_name = playlist_name_query[0]
+            
+            try:
+                cursor.execute("INSERT INTO playlist_song (id_playlist, id_song) VALUES (%s, %s);", 
+                            [other_playlist_id, song_id])
+                connection.commit()
+                success_message = f"Berhasil menambahkan Lagu dengan judul '{song_title}' oleh '{artist_name}' ke '{playlist_name}'!"
+            except (DatabaseError, InternalError) as e:
+                connection.rollback()
+                if 'marmut.check_duplicate_song_on_playlist' in str(e):
+                    error_message = f"Lagu '{song_title}' sudah ada dalam playlist '{playlist_name}'"
+                else:
+                    error_message = "Gagal menambahkan lagu ke playlist"
+
+    
+        cursor.execute("""
+            SELECT id_playlist, judul 
+            FROM user_playlist 
+            WHERE email_pembuat = %s;
+        """, [email_pengguna])
+        playlists = cursor.fetchall()
+
+        context = {
+            'song_id': song_id,
+            'song_title': song_title,
+            'artist_name': artist_name,
+            'success_message': success_message,
+            'error_message': error_message,
+            'playlist_name': playlist_name,
+            'playlists' : playlists,
+            'other_playlist' : other_playlist_id
+        }
+
+        cursor.close()
+        connection.close()
+
+        return render(request, 'add_song_to_playlist.html', context)
+
 
 @csrf_exempt
 def update_play_count(request, song_id):
