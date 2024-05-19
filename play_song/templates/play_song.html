@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block meta %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Song Details</title>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .music-progress-container {
+            width: 80%;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .song-details {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .playlist-description{
+            color: white; /* Set the text color to white */
+        }
+
+        .playlist-description p {
+            margin-top: 20px; /* Jarak ke elemen di atasnya */
+            margin-bottom: 20px; /* Jarak ke elemen di bawahnya */
+        }
+        
+        .playlist-description p:first-child {
+            margin-top: 20px; /* Jarak lebih besar di bagian atas elemen pertama */
+        }
+
+        .playlist-description p:last-child {
+            margin-bottom: 20px; /* Jarak lebih besar di bagian bawah elemen terakhir */
+        }
+
+        .user-btn button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #000; /* Initial black color */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Transition for hover effect */
+        }
+
+        .user-btn button:hover {
+            background-color: #4CAF50; /* Green when hovered */
+        }
+
+        .back-btn {
+            margin: 10px;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            float: left;
+            color: white; /* Initial white color */
+        }
+
+        .back-btn i {
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover i {
+            color: black; /* Change color on hover */
+        }
+    </style>
+</head>
+{% endblock meta %}
+
+{% block content %}
+<body>
+    <div id="header-playlist">
+        <div class="container">
+            <nav>
+              <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+            </nav>
+        </div>
+    </div>
+    <div class="playlist-page two">
+        <h2>Song Detail</h2>
+        <div class="list-playlist three">
+            <div class="playlist-description">
+                <p><strong>Judul:</strong> {{ song_detail.judul }}<br>
+                    <strong>Genre(s):</strong> {{ song_detail.genres|join:", " }}<br>
+                    <strong>Artist:</strong> {{ song_detail.artist }}<br>
+                    <strong>Songwriter(s):</strong> {{ song_detail.songwriters|join:", " }}<br>
+                    <strong>Durasi:</strong> {{ song_detail.durasi }} menit<br>
+                    <strong>Tanggal Rilis:</strong> {{ song_detail.tanggal_rilis|date:"d/m/Y" }}<br>
+                    <strong>Tahun:</strong> {{ song_detail.tahun }}<br>
+                    <strong>Total Play:</strong> <span id="total-play-display">{{ song_detail.total_play }}</span><br>
+                    <strong>Total Downloads:</strong> {{ song_detail.total_downloads }}<br>
+                    <strong>Album:</strong> {{ song_detail.album }}
+                </p>
+            </div>
+            <div class="music-progress-container">
+                <input type="range" id="song-progress" value="0" min="0" max="100">
+                <span id="progress-percentage">0%</span>
+            </div>
+            <div class="user-btn">
+                <button onclick="playSong()">Play</button>
+                <a href="tambah_lagu_playlist.html">
+                    <button>Add to Playlist</button>
+                </a>
+                {% if show_download_button %}
+                    <button>Download</button>
+                {% endif %}
+                <button onclick="window.history.back();">Kembali</button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+            document.getElementById('song-progress').addEventListener('input', function() {
+                document.getElementById('progress-percentage').innerText = this.value + '%';
+            });
+
+            function playSong() {
+                var progress = document.getElementById('song-progress').value;
+                if (progress > 70) {
+                    updateTotalPlays(); // Call function to update total plays
+                } else {
+                    alert("No action taken because progress is not greater than 70%.");
+                }
+            }
+
+            function updateTotalPlay() {
+                var totalPlayElement = document.querySelector('.total-play');
+                var totalPlay = parseInt(totalPlayElement.innerText) + 1;
+                totalPlayElement.innerText = totalPlay;
+            }
+
+            function saveTotalPlayToServer() {
+                fetch(`/update-play-count/{{ song_id }}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if(!data.success) {
+                        alert("Failed to permanently update play count on the server.");
+                    }
+                })
+                .catch(error => console.error('Error updating play count on server:', error));
+            }
+    </script>
+</body>
+{% endblock content %}
+</html>
