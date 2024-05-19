@@ -89,7 +89,9 @@
                   <th>{{song.nama}}</th>
                   <th>{{song.durasi}}</th>
                   <th class="btn-action">
-                    <button><i class="fa-solid fa-eye"></i></button>
+                    <a href="{% url 'play_song:play_song' song.id_lagu %}" style="text-decoration: none;">
+                      <button><i class="fa-solid fa-eye"></i></button>
+                    </a>
                     <button><i class="fa-solid fa-play"></i></button>
                     <a href="{% url 'playlist:delete_song' user_detail.id_playlist song.id_lagu %}" style="text-decoration: none;">
                       <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
