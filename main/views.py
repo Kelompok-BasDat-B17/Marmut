@@ -22,13 +22,15 @@ def user_login(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         data = search_user(email, password)
-        if len(data) != 0:
-            val_email = data[0][0]
+        if data == "Pengguna":
             response = HttpResponseRedirect(reverse("main:homepage"))
-            subscription = check_subscription(val_email)
-            response.set_cookie("email", val_email)
+            subscription = check_subscription(email)
+            response.set_cookie("email", email)
             response.set_cookie("subscription", subscription)
-           
+            return response
+        elif data == "Label":
+            response = HttpResponseRedirect(reverse("main:homepage"))
+            response.set_cookie("email", email)
             return response
         messages.error(request, 'Sorry, incorrect username or password. Please try again.')
     return render(request, "login.html")

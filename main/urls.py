@@ -21,4 +21,8 @@ urlpatterns = [
     path('create_album/', create_album, name='create_album'),
     path('create_song_songwriter/<str:album_name>/', create_song_songwriter, name='create_song_songwriter'),
     path('create_song_artist/<str:album_name>/', create_song_artist, name='create_song_artist'),
+    #  path('play-podcast/<uuid:podcast_id>/', play_podcast, name='play_podcast'),
+    # path('play-song/<uuid:song_id>/', play_song, name='play_song'),
+    # path('melihat-chart/', melihat_chart, name='melihat_chart'),
+    # path('melihat-chart/<uuid:chart_id>', chart_detail, name='chart_detail'),
 ]

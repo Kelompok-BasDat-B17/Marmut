@@ -36,7 +36,7 @@
             <li><a href="#">Cari lagu</a></li>
             <li><a href="#">Langganan paket</a></li>
           </ul>
-          <a href="{% url 'main:logout' %}" style="text-decoration: none;">
+          <a href="{% url 'main:logout' %}" style="text-decoration: none; cursor: pointer;">
             <button class="logout-btn">
               Logout
             </button>
@@ -52,9 +52,11 @@
             Anda Belum Memiliki Playlist
           </h5>
           <div class="row-btn">
-            <button class="add-btn">
-              Tambah Playlist
-            </button>
+            <a href="{% url 'playlist:add_playlist' %}" style="text-decoration: none; width: 100%; height: 100%; text-align: center; margin-right: 150px;">
+              <button class="add-btn">
+                Tambah Playlist
+              </button>
+            </a>
           </div>
         </div>
       {% else %}

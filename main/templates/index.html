@@ -35,10 +35,8 @@
             <li><a href="{% url 'playlist:show_playlist' %}">Kelola playlist</a></li>
             <li><a href="#">Cari lagu</a></li>
             <li><a href="#">Langganan paket</a></li>
-          <li><a href="{% url 'main:album_list' %}">Kelola Album & Song</a></li>
-            <li><a href="{% url 'main:royalty_list' %}">Royalti</a></li>
           </ul>
-          <a href="{% url 'main:logout' %}" style="text-decoration: none;">
+          <a href="{% url 'main:logout' %}" style="text-decoration: none; cursor: pointer;">
             <button class="logout-btn">
               Logout
             </button>
@@ -132,9 +130,8 @@
     <h2>Playlist</h2>
     <div class="playlist-row">
       <img src="{% static 'img/playlist_bg.png' %}">
-      <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none;">
-        <button class="btn-playlist">Tampilkan Playlist
-          <a href="{% url 'playlist:show_playlist' %}" style="text-decoration: none;"></a>
+        <button class="btn-playlist">
+          <a href="{% url 'playlist:show_playlist' %}" style="position: relative; text-decoration: none; color: black;">Tampilkan Playlist</a>
         </button>
     </div>
   </div>
@@ -185,7 +182,9 @@
       </div>
       <div class="album-songs">
         <h3>Album & Songs</h3>
-        <button>Kelola Album & Songs</button>
+        <button>
+          <a href="{% url 'main:album_list' %}" style="position: relative; text-decoration: none; color: black;">Kelola Album & Song</a>
+        </button>
       </div>
       <div class="album">
         <h3>Album</h3>
@@ -193,7 +192,9 @@
       </div>
       <div class="royalti">
         <h3>Royalti</h3>
-        <button>Cek Royalti</button>
+        <button>
+          <a href="{% url 'main:royalty_list' %}" style="position: relative; text-decoration: none; color: black;">Cek Royalti</a>
+        </button>
       </div>
     </div>
   </div>

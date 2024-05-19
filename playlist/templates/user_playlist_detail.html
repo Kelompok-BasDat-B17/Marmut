@@ -36,7 +36,11 @@
             <li><a href="#">Cari lagu</a></li>
             <li><a href="#">Langganan paket</a></li>
           </ul>
-          <button class="logout-btn">Logout</button>
+          <a href="{% url 'main:logout' %}" style="text-decoration: none; cursor: pointer;">
+            <button class="logout-btn">
+              Logout
+            </button>
+          </a>
         </nav>
       </div>
     </div>
@@ -87,7 +91,9 @@
                   <th class="btn-action">
                     <button><i class="fa-solid fa-eye"></i></button>
                     <button><i class="fa-solid fa-play"></i></button>
-                    <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                    <a href="{% url 'playlist:delete_song' user_detail.id_playlist song.id_lagu %}" style="text-decoration: none;">
+                      <button class="delete"><i class="fa-solid fa-circle-minus"></i></button>
+                    </a>
                   </th>
                 </tr>
               {% endfor %}

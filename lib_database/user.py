@@ -3,9 +3,13 @@ from datetime import datetime as dt
 
 
 def search_user(email: str, password: str):
-  query = f"SELECT email, password FROM AKUN WHERE email = '{email}' AND password = '{password}'"
-  data = get_data(query)
-  return data
+  query1 = f"SELECT email, password FROM AKUN WHERE email = '{email}' AND password = '{password}'"
+  query2 = f"SELECT email, password FROM LABEL WHERE email = '{email}' AND password = '{password}'"
+  data1 = get_data(query1)
+  data2 = get_data(query2)
+  if len(data1) != 0: return "Pengguna"
+  elif len(data2) != 0: return "Label"
+  else: return "Invalid" 
 
 def search_label(email: str, password: str):
   query = f"SELECT email, password FROM LABEL WHERE email = '{email}' AND password = '{password}'"

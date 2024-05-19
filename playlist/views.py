@@ -11,11 +11,7 @@ import uuid
 
 def show_playlist(request):
   playlist = get_playlist(request.COOKIES.get("email"))
-  print(playlist)
   if (len(playlist) != 0):
-    print(playlist)
-    pembuat = get_pembuat(request.COOKIES.get("email"))
-    print(pembuat)
     Playlist.list_playlist.clear()
     for i in range(len(playlist)):
       if playlist[i][4] == None:
@@ -31,10 +27,9 @@ def show_playlist(request):
 
 def playlist_detail(request, id_playlist):
   user_detail = get_user_detail(id_playlist)
+  print(user_detail)
+  print("id: " + id_playlist)
   list_song = get_detail_playlist(id_playlist)
-  print(user_detail.id_playlist)
-  print(id_playlist)
-  print(list_song)
   Songs.list_song.clear()
   if len(list_song) != 0:
     for song in list_song:
@@ -63,6 +58,7 @@ def delete_playlist(request, id_playlist):
   del_playlist(id_playlist)
   return HttpResponseRedirect(reverse('playlist:show_playlist'))
 
+@csrf_exempt
 def add_song(request, id_playlist):
   get_song = get_list_lagu()
   Songs.list_song.clear()
@@ -71,7 +67,30 @@ def add_song(request, id_playlist):
   context = {
     "list_song": Songs.list_song
   }
+  if request.method == "POST":
+    selected_song = request.POST.get("lagu")
+    try:
+      insert(f"INSERT INTO PLAYLIST_SONG VALUES ('{id_playlist}', '{selected_song}');")
+      for i in range(len(Playlist.list_playlist)):
+        if str(id_playlist) == str(Playlist.list_playlist[i].id_playlist):
+          durasi_baru = get_data(f"SELECT durasi FROM KONTEN WHERE id = '{selected_song}'")[0][0]
+          Playlist.list_playlist[i].total_durasi += durasi_baru
+          Playlist.list_playlist[i].jumlah_lagu += 1
+         
+      return redirect("playlist:playlist_detail", str(id_playlist))
+    except Exception as e:
+      messages.error(request, "Duplicate, tidak bisa menambahkan lagu")
   return render(request, "add_song.html", context)
+
+def delete_song(request, id_playlist, id_song):
+  del_song(id_playlist, id_song)
+  durasi_baru = get_data(f"SELECT durasi FROM KONTEN WHERE id = '{id_song}'")[0][0]
+  for i in range(len(Playlist.list_playlist)):
+    if str(id_playlist) == str(Playlist.list_playlist[i].id_playlist):
+      Playlist.list_playlist[i].total_durasi -= durasi_baru
+      Playlist.list_playlist[i].jumlah_lagu -= 1
+  return redirect('playlist:playlist_detail', id_playlist)
+
 
 
    

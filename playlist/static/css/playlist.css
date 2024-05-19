@@ -220,6 +220,7 @@ nav ul li a.nav-paket::after{
   place-items: center;
   row-gap: 5px; 
   margin-bottom: 100px;
+  
 }
 
 .list-playlist,
@@ -354,7 +355,7 @@ th button:hover{
   margin-top: 44px;
   overflow: auto;
   height: 40%;
-  width: 95%;
+  width: 100%;
 }
 
 
@@ -425,6 +426,7 @@ thead th{
 
 .playlist-content.two{
   margin-top: 10px;
+  margin-left: 30px;
 }
 
 .playlist-content.two h2{
@@ -438,9 +440,14 @@ button .fa-eye{
 }
 
 .playlist-content.two table{
-  margin-left: 80px;
+  margin-left: 100px;
   height: 40%;
   width:95%;
+}
+
+.playlist-content.playlist table{
+  margin-right: 40px;
+  width: 80%;
 }
 
 .fa-circle-minus{

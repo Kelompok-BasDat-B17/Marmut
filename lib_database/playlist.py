@@ -29,10 +29,6 @@ def get_song(id_playlist: str):
 
 def get_user_detail(id_playlist: str):
   for playlist in Playlist.list_playlist:
-    print(type(id_playlist))
-    print(type(str(playlist.id_playlist)))
-    print(str(playlist.id_playlist))
-    print(id_playlist)
     if str(playlist.id_playlist) == id_playlist:
       return playlist
 
@@ -85,3 +81,9 @@ def del_playlist(id_playlist: str):
 
 def get_list_lagu():
   return get_data(f"SELECT s.id_konten, k.judul, a.nama FROM SONG AS s JOIN KONTEN AS k ON s.id_konten = k.id JOIN ARTIST AS ar ON s.id_artist = ar.id JOIN AKUN AS a ON ar.email_akun = a.email ORDER BY k.judul ASC")
+
+def add_song(id_playlist: uuid, id_song: uuid):
+  insert(f"INSERT INTO PLAYLIST_SONG VALUES ('{id_playlist}', '{id_song}')")
+
+def del_song(id_playlist, id_song):
+  delete(f"DELETE FROM PLAYLIST_SONG WHERE id_playlist = '{id_playlist}' AND id_song = '{id_song}'")
