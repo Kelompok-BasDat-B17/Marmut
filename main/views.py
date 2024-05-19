@@ -75,7 +75,7 @@ def royalty_list(request):
     if not request.user.is_authenticated:
         messages.info(request, 'Please login first')
         return redirect('main:user_login')
-    email = request.user.email
+    email = request.COOKIES.get("email")
     royalty_list = get_royalty_list(email)
     name = get_user_name(email)
     return render(request, "royalty_list.html", {'royalty_list': royalty_list, 'name': name})
@@ -129,7 +129,7 @@ def logout(request):
     return response
 
 def album_list(request):
-    email = request.user.email
+    email = request.COOKIES.get("email")
     role = get_user_type(email)
     if role == "Label":
         name = get_label_name(email)
